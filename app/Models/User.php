@@ -20,7 +20,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'display_name',
         'email',
+        'mobile',
         'password',
     ];
 
@@ -43,4 +45,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function expert()
+    {
+        return $this->hasOne(\App\Models\Expert::class);
+    }
+
 }
