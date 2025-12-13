@@ -53,16 +53,38 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="password" class="form-control" name="password" placeholder="Password"
-                                    required>
+
+                                <!-- input wrapper -->
+                                <div class="position-relative">
+                                    <input type="password" class="form-control pe-5" name="password" id="password"
+                                        placeholder="Password" required>
+
+                                    <span class="password-toggle" data-target="password">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+
+                                <!-- strength meter (outside wrapper) -->
+                                <div class="progress mt-2" style="height:5px;">
+                                    <div id="password-strength-bar" class="progress-bar"></div>
+                                </div>
+
+                                <small id="password-strength-text" class="text-muted"></small>
+
                                 <div class="invalid-feedback">
                                     Password is required
                                 </div>
                             </div>
 
-                            <div class="form-group icon_input mb-3">
-                                <input type="password" class="form-control" name="password_confirmation"
-                                    placeholder="Confirm Password" required>
+                            <div class="form-group icon_input mb-3 position-relative">
+                                <input type="password" class="form-control pe-5" name="password_confirmation"
+                                    id="password_confirmation" placeholder="Confirm Password" required>
+
+                                <!-- 👁 Show / Hide icon -->
+                                <span class="password-toggle" data-target="password_confirmation">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+
                                 <div class="invalid-feedback">
                                     Please confirm your password
                                 </div>
@@ -98,8 +120,8 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="toolsKnown" placeholder="Tools Known"
-                                    required>
+                                <input type="text" class="form-control" name="toolsKnown"
+                                    placeholder="Tools Known" required>
                                 <div class="invalid-feedback">ToolsKnown are required</div>
                             </div>
 
@@ -183,15 +205,41 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="password" class="form-control" name="password" placeholder="Password"
-                                    required>
-                                <div class="invalid-feedback">Password is required</div>
+
+                                <!-- input wrapper -->
+                                <div class="position-relative">
+                                    <input type="password" class="form-control pe-5" name="password" id="password"
+                                        placeholder="Password" required>
+
+                                    <span class="password-toggle" data-target="password">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+
+                                <!-- strength meter (outside wrapper) -->
+                                <div class="progress mt-2" style="height:5px;">
+                                    <div id="password-strength-bar" class="progress-bar"></div>
+                                </div>
+
+                                <small id="password-strength-text" class="text-muted"></small>
+
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
                             </div>
 
-                            <div class="form-group icon_input mb-3">
-                                <input type="password" class="form-control" name="password_confirmation"
-                                    placeholder="Confirm Password" required>
-                                <div class="invalid-feedback">Please confirm your password</div>
+                            <div class="form-group icon_input mb-3 position-relative">
+                                <input type="password" class="form-control pe-5" name="password_confirmation"
+                                    id="password_confirmation" placeholder="Confirm Password" required>
+
+                                <!-- 👁 Show / Hide icon -->
+                                <span class="password-toggle" data-target="password_confirmation">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+
+                                <div class="invalid-feedback">
+                                    Please confirm your password
+                                </div>
                             </div>
 
                             <div class="form-group icon_input mb-3">

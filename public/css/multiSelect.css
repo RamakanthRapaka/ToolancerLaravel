@@ -81,3 +81,34 @@
     box-shadow: none;
     border-color: #ced4da;
 }
+
+
+/* Password strength colors */
+.progress-bar.weak {
+    background-color: #dc3545;
+    /* red */
+}
+
+.progress-bar.medium {
+    background-color: #ffc107;
+    /* yellow */
+}
+
+.progress-bar.strong {
+    background-color: #198754;
+    /* green */
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #6c757d;
+}
+
+.password-toggle:hover {
+    color: #0d6efd;
+}
