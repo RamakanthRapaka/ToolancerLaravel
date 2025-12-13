@@ -25,7 +25,7 @@
                 {{-- Export Signup --}}
                 <div class="tab-pane active" role="tabpanel" id="export">
                     <div class="exportSignUp">
-                        <form action="{{ url('enquiry') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('register.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <br>
 
@@ -34,12 +34,13 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="displayName" placeholder="Display Name">
+                                <input type="text" class="form-control" name="displayName"
+                                    placeholder="Display Name">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="email" class="form-control" name="email" id="UserEmail"
-                                       aria-describedby="emailHelp" placeholder="Enter email">
+                                    aria-describedby="emailHelp" placeholder="Enter email">
                             </div>
 
                             <div class="form-group icon_input mb-3">
@@ -47,68 +48,65 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="password" class="form-control" name="confirmpassword"
-                                       placeholder="Confirm Password">
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    placeholder="Confirm Password">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="mobile"
-                                       placeholder="Enter Mobile Number">
+                                    placeholder="Enter Mobile Number">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="tags"
-                                       placeholder="Eg., AI, Automation">
+                                    placeholder="Eg., AI, Automation">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="expertiseTags"
-                                       placeholder="Enter Expertise Tags">
+                                    placeholder="Enter Expertise Tags">
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="toolsKnown"
-                                       placeholder="Tools Known">
+                                <input type="text" class="form-control" name="toolsKnown" placeholder="Tools Known">
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="skills"
-                                       placeholder="Enter Skills">
+                                <input type="text" class="form-control" name="skills" placeholder="Enter Skills">
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="location"
-                                       placeholder="Enter Location">
+                                <input type="text" class="form-control" name="location" placeholder="Enter Location">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="languages"
-                                       placeholder="Enter Languages">
+                                    placeholder="Enter Languages">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="rate"
-                                       placeholder="Enter Hourly Rate / Price Range">
+                                    placeholder="Enter Hourly Rate / Price Range">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="portfolioURL"
-                                       placeholder="Enter Portfolio URL">
+                                    placeholder="Enter Portfolio URL">
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <textarea rows="3" name="shortBio" placeholder="Short Bio"
-                                          class="form-control" style="color:#000;"></textarea>
+                                <textarea rows="3" name="shortBio" placeholder="Short Bio" class="form-control" style="color:#000;"></textarea>
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <textarea rows="3" name="profileBio" placeholder="Profile Bio"
-                                          class="form-control" style="color:#000;"></textarea>
+                                <textarea rows="3" name="profileBio" placeholder="Profile Bio" class="form-control" style="color:#000;"></textarea>
                             </div>
 
                             <div class="form-control mb-3">
                                 <input class="form-control" type="file" id="formFile" name="profileFile">
                             </div>
+                            <input type="hidden" name="role" value="expert">
+
 
                             <br>
                             <button type="submit" class="btn btn-primary arrowLink">Submit</button>
@@ -119,7 +117,7 @@
                 {{-- User Signup --}}
                 <div class="tab-pane" role="tabpanel" id="user">
                     <div class="userSignUp">
-                        <form action="{{ url('enquiry') }}" method="post">
+                        <form action="{{ route('register.store') }}" method="post">
                             @csrf
                             <br>
 
@@ -128,12 +126,13 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="displayName" placeholder="Display Name">
+                                <input type="text" class="form-control" name="displayName"
+                                    placeholder="Display Name">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="email" class="form-control" name="email" id="UserEmail"
-                                       aria-describedby="emailHelp" placeholder="Enter email">
+                                    aria-describedby="emailHelp" placeholder="Enter email">
                             </div>
 
                             <div class="form-group icon_input mb-3">
@@ -141,14 +140,15 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="password" class="form-control" name="confirmpassword"
-                                       placeholder="Confirm Password">
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    placeholder="Confirm Password">
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="mobile"
-                                       placeholder="Enter Mobile Number">
+                                    placeholder="Enter Mobile Number">
                             </div>
+                            <input type="hidden" name="role" value="user">
 
                             <br>
                             <button type="submit" class="btn btn-primary arrowLink">Submit</button>
