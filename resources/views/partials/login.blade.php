@@ -77,7 +77,7 @@
                             </div>
 
                             <div class="form-group icon_input mb-3 password-wrapper">
-                                <input type="password" class="form-control" name="password_confirmation"
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"
                                     placeholder="Confirm Password" required>
 
                                 <span class="password-toggle" data-target="password_confirmation">
@@ -228,7 +228,7 @@
                             </div>
 
                             <div class="form-group icon_input mb-3 password-wrapper">
-                                <input type="password" class="form-control" name="password_confirmation"
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"
                                     placeholder="Confirm Password" required>
 
                                 <span class="password-toggle" data-target="password_confirmation">

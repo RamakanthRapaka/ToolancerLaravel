@@ -94,20 +94,31 @@ if (passwordInput && passwordInput.value.length > 0) {
 }
 
 // 👁 Show / Hide Password (Font Awesome)
-document.querySelectorAll('.password-toggle').forEach(toggle => {
-    toggle.addEventListener('click', function () {
-        const input = document.getElementById(this.dataset.target);
-        const icon = this.querySelector('i');
+document.addEventListener('click', function (e) {
+    const toggle = e.target.closest('.password-toggle');
+    if (!toggle) return;
 
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
-        }
-    });
+    const targetId = toggle.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    if (!input) return;
+
+    const icon = toggle.querySelector('i');
+
+    // Toggle type
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+
+    // Toggle icon
+    icon.classList.toggle('fa-eye', !isPassword);
+    icon.classList.toggle('fa-eye-slash', isPassword);
+
+    // 🔥 IMPORTANT: remove validation background again
+    input.style.backgroundImage = 'none';
+    input.style.backgroundRepeat = 'no-repeat';
+
+    // Force Bootstrap variables again
+    input.style.setProperty('--bs-form-valid-bg-icon', 'none');
+    input.style.setProperty('--bs-form-invalid-bg-icon', 'none');
 });
+
 
