@@ -58,8 +58,15 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="tags"
-                                    placeholder="Eg., AI, Automation">
+                                <select class="form-control selectpicker" name="tags[]" multiple
+                                    data-live-search="true" title="Select Tags" required>
+
+                                    <option value="AI">AI</option>
+                                    <option value="Automation">Automation</option>
+                                    <option value="Chatbot">Chatbot</option>
+                                    <option value="Machine Learning">Machine Learning</option>
+                                    <option value="Data Analytics">Data Analytics</option>
+                                </select>
                             </div>
 
                             <div class="form-group icon_input mb-3">
@@ -106,7 +113,6 @@
                                 <input class="form-control" type="file" id="formFile" name="profileFile">
                             </div>
                             <input type="hidden" name="role" value="expert">
-
 
                             <br>
                             <button type="submit" class="btn btn-primary arrowLink">Submit</button>
