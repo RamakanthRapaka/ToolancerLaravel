@@ -112,3 +112,41 @@
 .password-toggle:hover {
     color: #0d6efd;
 }
+
+/* Remove Bootstrap validation icons ONLY for password fields */
+.form-control[type="password"] {
+    --bs-form-valid-bg-icon: none !important;
+    --bs-form-invalid-bg-icon: none !important;
+    background-image: none !important;
+}
+
+/* Fix confirm password eye icon shift */
+.password-wrapper {
+    position: relative;
+}
+
+/* Lock eye icon */
+.password-wrapper .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+/* Keep height stable */
+.password-wrapper .form-control {
+    min-height: 38px;
+    padding-right: 2.75rem;
+}
+
+/* Prevent feedback from pushing layout */
+.password-wrapper .invalid-feedback {
+    position: absolute;
+    bottom: -1.25rem;
+    left: 0;
+}
+
+.password-wrapper {
+    margin-bottom: 2rem;
+}

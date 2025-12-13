@@ -76,17 +76,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group icon_input mb-3 position-relative">
-                                <input type="password" class="form-control pe-5" name="password_confirmation"
-                                    id="password_confirmation" placeholder="Confirm Password" required>
+                            <div class="form-group icon_input mb-3 password-wrapper">
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    placeholder="Confirm Password" required>
 
-                                <!-- 👁 Show / Hide icon -->
                                 <span class="password-toggle" data-target="password_confirmation">
                                     <i class="fa fa-eye"></i>
                                 </span>
 
                                 <div class="invalid-feedback">
-                                    Please confirm your password
+                                    Passwords do not match
                                 </div>
                             </div>
 
@@ -228,17 +227,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group icon_input mb-3 position-relative">
-                                <input type="password" class="form-control pe-5" name="password_confirmation"
-                                    id="password_confirmation" placeholder="Confirm Password" required>
+                            <div class="form-group icon_input mb-3 password-wrapper">
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    placeholder="Confirm Password" required>
 
-                                <!-- 👁 Show / Hide icon -->
                                 <span class="password-toggle" data-target="password_confirmation">
                                     <i class="fa fa-eye"></i>
                                 </span>
 
                                 <div class="invalid-feedback">
-                                    Please confirm your password
+                                    Passwords do not match
                                 </div>
                             </div>
 
