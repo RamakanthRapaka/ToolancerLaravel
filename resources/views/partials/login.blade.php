@@ -166,6 +166,7 @@
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="name" placeholder="UserName"
                                     required>
+                                <div class="invalid-feedback">Username is required</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
@@ -177,21 +178,25 @@
                             <div class="form-group icon_input mb-3">
                                 <input type="email" class="form-control" name="email" id="UserEmail"
                                     aria-describedby="emailHelp" placeholder="Enter email" required>
+                                <div class="invalid-feedback">Email is required</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="password" class="form-control" name="password" placeholder="Password"
                                     required>
+                                <div class="invalid-feedback">Password is required</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="password" class="form-control" name="password_confirmation"
                                     placeholder="Confirm Password" required>
+                                <div class="invalid-feedback">Please confirm your password</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="mobile"
                                     placeholder="Enter Mobile Number" required>
+                                <div class="invalid-feedback">Mobile number is required</div>
                             </div>
                             <input type="hidden" name="role" value="user">
 
