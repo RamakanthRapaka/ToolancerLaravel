@@ -146,6 +146,7 @@
                             <div class="form-control mb-3">
                                 <input class="form-control" type="file" id="formFile" name="profileFile"
                                     required>
+                                <div class="invalid-feedback">Profile file is required</div>
                             </div>
                             <input type="hidden" name="role" value="expert">
 
