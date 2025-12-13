@@ -35,13 +35,49 @@
 }
 
 /* Validation – error */
-.was-validated .bootstrap-select select:invalid + .dropdown-toggle,
+.was-validated .bootstrap-select select:invalid+.dropdown-toggle,
 .bootstrap-select.is-invalid .dropdown-toggle {
     border-color: #dc3545;
 }
 
 /* Validation – success */
-.was-validated .bootstrap-select select:valid + .dropdown-toggle,
+.was-validated .bootstrap-select select:valid+.dropdown-toggle,
 .bootstrap-select.is-valid .dropdown-toggle {
     border-color: #198754;
+}
+
+/* Hide select error by default */
+.select-error {
+    display: none;
+    color: #dc3545;
+    font-size: 0.875em;
+}
+
+/* Show error only when invalid */
+.bootstrap-select.is-invalid+.select-error,
+.bootstrap-select.is-invalid~.select-error {
+    display: block;
+}
+
+/* Red border */
+.bootstrap-select.is-invalid .dropdown-toggle {
+    border-color: #dc3545;
+}
+
+/* 🔥 Remove validation icons from bootstrap-select search input */
+.bootstrap-select .bs-searchbox .form-control {
+    background-image: none !important;
+    padding-right: 0.75rem !important;
+}
+
+/* Prevent validation state from affecting search box */
+.bootstrap-select.is-invalid .bs-searchbox .form-control,
+.bootstrap-select.is-valid .bs-searchbox .form-control {
+    border-color: #ced4da !important;
+    box-shadow: none !important;
+}
+
+.bootstrap-select .bs-searchbox .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
 }
