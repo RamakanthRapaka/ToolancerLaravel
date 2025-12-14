@@ -20,27 +20,29 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'display_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
-            'mobile'   => 'required|string|max:15',
-            'role'     => 'required|in:user,expert',
+            'mobile' => 'required|string|max:15',
+            'role' => 'required|in:user,expert',
         ];
 
         // Expert-only validation
         if ($this->input('role') === 'expert') {
             $rules = array_merge($rules, [
-                'tags'           => 'required|string|max:255',
-                'expertiseTags'  => 'required|string|max:255',
-                'toolsKnown'     => 'required|string|max:255',
-                'skills'         => 'required|string|max:255',
-                'location'       => 'required|string|max:255',
-                'languages'      => 'required|string|max:255',
-                'rate'           => 'required|string|max:100',
-                'portfolioURL'   => 'nullable|url',
-                'shortBio'       => 'required|string|max:500',
-                'profileBio'     => 'required|string|max:2000',
-                'profileFile'    => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+                'tags' => 'required|array|min:1',
+                'tags.*' => 'string|max:100',
+                'expertiseTags' => 'required|string|max:255',
+                'toolsKnown' => 'required|string|max:255',
+                'skills' => 'required|string|max:255',
+                'location' => 'required|string|max:255',
+                'languages' => 'required|string|max:255',
+                'rate' => 'required|string|max:100',
+                'portfolioURL' => 'nullable|url',
+                'shortBio' => 'required|string|max:500',
+                'profileBio' => 'required|string|max:2000',
+                'profileFile' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             ]);
         }
 

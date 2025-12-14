@@ -12,7 +12,6 @@ class RegisterController extends Controller
 {
     public function store(RegisterRequest $request)
     {
-        // User creation
         $user = User::create([
             'name'         => $request->input('name'),
             'display_name' => $request->input('displayName'),
@@ -21,10 +20,8 @@ class RegisterController extends Controller
             'password'     => Hash::make($request->input('password')),
         ]);
 
-        // Assign role via Spatie
         $user->assignRole($request->input('role'));
 
-        // Expert profile creation
         if ($request->input('role') === 'expert') {
 
             $filePath = null;
@@ -47,6 +44,14 @@ class RegisterController extends Controller
                 'profile_bio'    => $request->input('profileBio'),
                 'profile_file'   => $filePath,
             ]);
+        }
+
+        // ✅ AJAX-safe response
+        if ($request->expectsJson()) {
+            return response()->json([
+                'status'  => true,
+                'message' => 'Registration successful',
+            ], 201);
         }
 
         return redirect()->back()->with('success', 'Registration successful');

@@ -25,8 +25,8 @@
                 {{-- Export Signup --}}
                 <div class="tab-pane active" role="tabpanel" id="export">
                     <div class="exportSignUp">
-                        <form action="{{ route('register.store') }}" method="post" enctype="multipart/form-data"
-                            class="needs-validation" novalidate>
+                        <form id="expertRegisterForm" action="{{ route('register.store') }}" method="post"
+                            enctype="multipart/form-data" class="needs-validation ajax-form" novalidate>
                             @csrf
                             <br>
 
@@ -77,8 +77,8 @@
                             </div>
 
                             <div class="form-group icon_input mb-3 password-wrapper">
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"
-                                    placeholder="Confirm Password" required>
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    id="password_confirmation" placeholder="Confirm Password" required>
 
                                 <span class="password-toggle" data-target="password_confirmation">
                                     <i class="fa fa-eye"></i>
@@ -165,9 +165,8 @@
                             </div>
 
                             <div class="form-control mb-3">
-                                <input class="form-control" type="file" id="formFile" name="profileFile"
-                                    required>
-                                <div class="invalid-feedback">Profile file is required</div>
+                                <input class="form-control" type="file" id="formFile" name="profileFile" required>
+                                <div class="invalid-feedback profileFile-error">Profile file is required</div>
                             </div>
                             <input type="hidden" name="role" value="expert">
 
@@ -180,8 +179,8 @@
                 {{-- User Signup --}}
                 <div class="tab-pane" role="tabpanel" id="user">
                     <div class="userSignUp">
-                        <form action="{{ route('register.store') }}" method="post" class="needs-validation"
-                            novalidate>
+                        <form id="userRegisterForm" action="{{ route('register.store') }}" method="post"
+                            class="needs-validation ajax-form" novalidate>
                             @csrf
                             <br>
 
@@ -228,8 +227,8 @@
                             </div>
 
                             <div class="form-group icon_input mb-3 password-wrapper">
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"
-                                    placeholder="Confirm Password" required>
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    id="password_confirmation" placeholder="Confirm Password" required>
 
                                 <span class="password-toggle" data-target="password_confirmation">
                                     <i class="fa fa-eye"></i>
