@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="displayName" placeholder="Display Name"
+                                <input type="text" class="form-control" name="display_name" placeholder="Display Name"
                                     required>
                                 <div class="invalid-feedback">Display name is required</div>
                             </div>
@@ -191,7 +191,7 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="displayName"
+                                <input type="text" class="form-control" name="display_name"
                                     placeholder="Display Name" required>
                                 <div class="invalid-feedback">Display name is required</div>
                             </div>

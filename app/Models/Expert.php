@@ -23,4 +23,12 @@ class Expert extends Model
         'profile_bio',
         'profile_file',
     ];
+
+    protected $casts = [
+        'tags' => 'array',
+        'expertise_tags' => 'array',
+        'tools_known' => 'array',
+        'skills' => 'array',
+        'languages' => 'array',
+    ];
 }
