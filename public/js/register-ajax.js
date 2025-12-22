@@ -120,6 +120,8 @@ document.addEventListener('DOMContentLoaded', function () {
             el.innerText = '';
         });
 
+        let firstInvalidField = null;
+
         Object.keys(errors).forEach(field => {
 
             let input =
@@ -130,9 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // ❌ Mark invalid (server wins)
             input.classList.add('is-invalid');
-
-            // Explicitly ensure no green tick
             input.classList.remove('is-valid');
+
+            if (!firstInvalidField) {
+                firstInvalidField = input;
+            }
 
             const feedback = input.closest('.form-group')
                 ?.querySelector('.invalid-feedback');
@@ -142,5 +146,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 feedback.style.display = 'block';
             }
         });
+
+        // ✅ AUTO-SCROLL + AUTO-FOCUS (NEW)
+        if (firstInvalidField) {
+
+            // Scroll smoothly
+            firstInvalidField.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            // Focus (handle selectpicker separately)
+            if (firstInvalidField.classList.contains('selectpicker')) {
+                $(firstInvalidField).selectpicker('toggle');
+            } else {
+                setTimeout(() => firstInvalidField.focus(), 300);
+            }
+        }
     }
 });
