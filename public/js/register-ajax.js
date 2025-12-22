@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    /**
-     * Handle all ajax forms
-     */
     document.querySelectorAll('.ajax-form').forEach(form => {
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // 🔹 Native browser validation first
             if (!form.checkValidity()) {
                 form.classList.add('was-validated');
                 return;
@@ -22,6 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(form);
 
+            // 🔹 Message container inside THIS form
+            const messageBox = form.querySelector('.drawer-message');
+            if (messageBox) {
+                messageBox.style.display = 'none';
+                messageBox.innerHTML = '';
+            }
+
             fetch(form.action, {
                 method: 'POST',
                 headers: {
@@ -31,44 +34,56 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: formData
             })
                 .then(async res => {
-
-                    // ❌ Laravel validation error
                     if (res.status === 422) {
-                        const data = await res.json();
-                        throw data;
+                        throw await res.json();
                     }
-
-                    // ❌ Any other server error
                     if (!res.ok) {
                         throw { message: 'Something went wrong. Please try again.' };
                     }
-
-                    // ✅ Success
                     return res.json();
                 })
                 .then(data => {
 
-                    // Reset form
+                    // ✅ Show success message at bottom
+                    if (messageBox) {
+                        messageBox.className = 'drawer-message alert alert-success';
+                        messageBox.innerText = data.message || 'Registration successful';
+                        messageBox.style.display = 'block';
+                    }
+
                     form.reset();
-                    form.classList.remove('was-validated');
 
-                    // Reset selectpicker
-                    $(form).find('.selectpicker').selectpicker('refresh');
+                    if (typeof clearServerErrors === 'function') {
+                        clearServerErrors(form);
+                    }
 
-                    alert(data.message || 'Registration successful');
 
-                    // Close offcanvas
-                    const offcanvasEl = document.getElementById('loginslide');
-                    const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
-                    offcanvas?.hide();
+                    if (typeof resetPasswordStrength === 'function') {
+                        resetPasswordStrength();
+                    }
+                    if (typeof resetSelectPickers === 'function') {
+                        resetSelectPickers(form);
+                    }
+
+                    // 🔹 Close drawer after delay (optional)
+                    setTimeout(() => {
+                        const offcanvasEl = document.getElementById('loginslide');
+                        const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                        offcanvas?.hide();
+
+                        if (messageBox) messageBox.style.display = 'none';
+                    }, 2500);
                 })
                 .catch(err => {
 
-                    // ✅ Map Laravel validation errors
                     if (err.errors) {
                         showErrors(form, err.errors);
-                    } else if (err.message) {
-                        alert(err.message);
+                    } else {
+                        if (messageBox) {
+                            messageBox.className = 'drawer-message alert alert-danger';
+                            messageBox.innerText = err.message || 'Something went wrong';
+                            messageBox.style.display = 'block';
+                        }
                     }
                 })
                 .finally(() => {
@@ -78,18 +93,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /**
-     * Map Laravel validation errors to UI
-     */
     function showErrors(form, errors) {
 
-        // Clear old errors
         form.querySelectorAll('.is-invalid').forEach(el => {
             el.classList.remove('is-invalid');
         });
 
         form.querySelectorAll('.invalid-feedback').forEach(el => {
-            el.innerText = '';
             el.style.display = 'none';
         });
 
@@ -101,36 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!input) return;
 
-            // 🔹 FILE INPUT (profileFile)
-            if (input.type === 'file') {
-                input.classList.add('is-invalid');
-
-                const feedback = input.parentElement
-                    ?.querySelector('.profileFile-error');
-
-                if (feedback) {
-                    feedback.innerText = errors[field][0];
-                    feedback.style.display = 'block';
-                }
-                return;
-            }
-
-            // 🔹 SELECTPICKER
-            if (input.classList.contains('selectpicker')) {
-                const wrapper = input.closest('.bootstrap-select');
-                wrapper?.classList.add('is-invalid');
-
-                const feedback = input.closest('.form-group')
-                    ?.querySelector('.invalid-feedback');
-
-                if (feedback) {
-                    feedback.innerText = errors[field][0];
-                    feedback.style.display = 'block';
-                }
-                return;
-            }
-
-            // 🔹 NORMAL INPUTS
             input.classList.add('is-invalid');
 
             const feedback = input.closest('.form-group')
@@ -144,29 +124,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
         form.classList.add('was-validated');
     }
-
-    /**
-     * Remove selectpicker error on change
-     */
-    $('.selectpicker').on('changed.bs.select', function () {
-        $(this).closest('.bootstrap-select').removeClass('is-invalid');
-    });
-
-    /**
-     * Remove file input error on change
-     */
-    document.querySelectorAll('input[type="file"]').forEach(input => {
-        input.addEventListener('change', function () {
-            input.classList.remove('is-invalid');
-
-            const feedback = input.parentElement
-                ?.querySelector('.profileFile-error');
-
-            if (feedback) {
-                feedback.innerText = '';
-                feedback.style.display = 'none';
-            }
-        });
-    });
-
 });

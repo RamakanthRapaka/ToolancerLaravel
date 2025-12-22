@@ -171,6 +171,7 @@
                             <input type="hidden" name="role" value="expert">
 
                             <br>
+                            <div class="drawer-message mt-3" style="display:none;"></div>
                             <button type="submit" class="btn btn-primary arrowLink">Submit</button>
                         </form>
                     </div>
@@ -247,6 +248,7 @@
                             <input type="hidden" name="role" value="user">
 
                             <br>
+                            <div class="drawer-message mt-3" style="display:none;"></div>
                             <button type="submit" class="btn btn-primary arrowLink">Submit</button>
                         </form>
                     </div>
