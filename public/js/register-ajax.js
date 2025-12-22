@@ -2,6 +2,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.ajax-form').forEach(form => {
 
+        form.querySelectorAll('input, select, textarea').forEach(el => {
+            ['input', 'change'].forEach(evt => {
+                el.addEventListener(evt, function () {
+                    this.classList.remove('is-invalid');
+
+                    const feedback = this.closest('.form-group')
+                        ?.querySelector('.invalid-feedback');
+
+                    if (feedback) feedback.style.display = 'none';
+                });
+            });
+        });
+
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -52,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     form.reset();
+                    form.classList.remove('was-validated');
 
                     if (typeof clearServerErrors === 'function') {
                         clearServerErrors(form);
@@ -94,12 +108,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showErrors(form, errors) {
 
-        form.querySelectorAll('.is-invalid').forEach(el => {
-            el.classList.remove('is-invalid');
+        // 🔥 Remove Bootstrap validation state completely
+        form.classList.remove('was-validated');
+
+        form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+            el.classList.remove('is-valid', 'is-invalid');
         });
 
         form.querySelectorAll('.invalid-feedback').forEach(el => {
             el.style.display = 'none';
+            el.innerText = '';
         });
 
         Object.keys(errors).forEach(field => {
@@ -110,7 +128,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!input) return;
 
+            // ❌ Mark invalid (server wins)
             input.classList.add('is-invalid');
+
+            // Explicitly ensure no green tick
+            input.classList.remove('is-valid');
 
             const feedback = input.closest('.form-group')
                 ?.querySelector('.invalid-feedback');
@@ -120,7 +142,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 feedback.style.display = 'block';
             }
         });
-
-        form.classList.add('was-validated');
     }
 });
