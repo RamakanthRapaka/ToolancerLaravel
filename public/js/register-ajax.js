@@ -57,9 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         clearServerErrors(form);
                     }
 
-
                     if (typeof resetPasswordStrength === 'function') {
-                        resetPasswordStrength();
+                        resetPasswordStrength(form);
                     }
                     if (typeof resetSelectPickers === 'function') {
                         resetSelectPickers(form);

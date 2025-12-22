@@ -56,20 +56,20 @@
 
                                 <!-- input wrapper -->
                                 <div class="position-relative">
-                                    <input type="password" class="form-control pe-5" name="password" id="password"
+                                    <input type="password" class="form-control pe-5" name="password" id="expert_password"
                                         placeholder="Password" required>
 
-                                    <span class="password-toggle" data-target="password">
+                                    <span class="password-toggle" data-target="expert_password">
                                         <i class="fa fa-eye"></i>
                                     </span>
                                 </div>
 
                                 <!-- strength meter (outside wrapper) -->
                                 <div class="progress mt-2" style="height:5px;">
-                                    <div id="password-strength-bar" class="progress-bar"></div>
+                                    <div class="password-strength-bar progress-bar"></div>
                                 </div>
 
-                                <small id="password-strength-text" class="text-muted"></small>
+                                <small class="password-strength-text text-muted"></small>
 
                                 <div class="invalid-feedback">
                                     Password is required
@@ -78,9 +78,9 @@
 
                             <div class="form-group icon_input mb-3 password-wrapper">
                                 <input type="password" class="form-control" name="password_confirmation"
-                                    id="password_confirmation" placeholder="Confirm Password" required>
+                                    id="expert_password_confirmation" placeholder="Confirm Password" required>
 
-                                <span class="password-toggle" data-target="password_confirmation">
+                                <span class="password-toggle" data-target="expert_password_confirmation">
                                     <i class="fa fa-eye"></i>
                                 </span>
 
@@ -207,20 +207,20 @@
 
                                 <!-- input wrapper -->
                                 <div class="position-relative">
-                                    <input type="password" class="form-control pe-5" name="password" id="password"
+                                    <input type="password" class="form-control pe-5" name="password" id="user_password"
                                         placeholder="Password" required>
 
-                                    <span class="password-toggle" data-target="password">
+                                    <span class="password-toggle" data-target="user_password">
                                         <i class="fa fa-eye"></i>
                                     </span>
                                 </div>
 
                                 <!-- strength meter (outside wrapper) -->
                                 <div class="progress mt-2" style="height:5px;">
-                                    <div id="password-strength-bar" class="progress-bar"></div>
+                                    <div class="password-strength-bar progress-bar"></div>
                                 </div>
 
-                                <small id="password-strength-text" class="text-muted"></small>
+                                <small class="password-strength-text text-muted"></small>
 
                                 <div class="invalid-feedback">
                                     Password is required
@@ -229,9 +229,9 @@
 
                             <div class="form-group icon_input mb-3 password-wrapper">
                                 <input type="password" class="form-control" name="password_confirmation"
-                                    id="password_confirmation" placeholder="Confirm Password" required>
+                                    id="user_password_confirmation" placeholder="Confirm Password" required>
 
-                                <span class="password-toggle" data-target="password_confirmation">
+                                <span class="password-toggle" data-target="user_password_confirmation">
                                     <i class="fa fa-eye"></i>
                                 </span>
 

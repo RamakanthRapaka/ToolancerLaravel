@@ -1,14 +1,22 @@
 // public/js/form-helpers.js
 
-window.resetPasswordStrength = function () {
-    const strengthBar = document.getElementById('password-strength-bar');
-    const strengthText = document.getElementById('password-strength-text');
+window.resetPasswordStrength = function (form) {
+    if (!form) return;
+
+    const strengthBar = form.querySelector('.password-strength-bar');
+    const strengthText = form.querySelector('.password-strength-text');
+    const passwordInput = form.querySelector('input[name="password"]');
 
     if (!strengthBar || !strengthText) return;
 
     strengthBar.style.width = '0%';
-    strengthBar.className = 'progress-bar';
+    strengthBar.className = 'password-strength-bar progress-bar';
     strengthText.textContent = '';
+
+    // Clear validation message if any
+    if (passwordInput) {
+        passwordInput.setCustomValidity('');
+    }
 };
 
 window.resetSelectPickers = function (form) {

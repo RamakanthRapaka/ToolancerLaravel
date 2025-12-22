@@ -39,13 +39,15 @@
 
 })();
 
+// 🔐 Password Strength Meter (supports multiple forms)
+document.querySelectorAll('.needs-validation').forEach(form => {
 
-// 🔐 Password Strength Meter
-const passwordInput = document.getElementById('password');
-const strengthBar = document.getElementById('password-strength-bar');
-const strengthText = document.getElementById('password-strength-text');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const strengthBar = form.querySelector('.password-strength-bar');
+    const strengthText = form.querySelector('.password-strength-text');
 
-if (passwordInput) {
+    if (!passwordInput || !strengthBar || !strengthText) return;
+
     passwordInput.addEventListener('input', function () {
         const password = this.value;
         let strength = 0;
@@ -55,43 +57,33 @@ if (passwordInput) {
         if (/[0-9]/.test(password)) strength++;
         if (/[\W]/.test(password)) strength++;
 
-        strengthBar.className = 'progress-bar';
+        strengthBar.className = 'password-strength-bar progress-bar';
 
         if (password.length === 0) {
             strengthBar.style.width = '0%';
             strengthText.textContent = '';
+            passwordInput.setCustomValidity('');
         }
         else if (strength <= 1) {
             strengthBar.style.width = '25%';
             strengthBar.classList.add('weak');
             strengthText.textContent = 'Weak password';
+            passwordInput.setCustomValidity('Password is too weak');
         }
-        else if (strength === 2 || strength === 3) {
+        else if (strength <= 3) {
             strengthBar.style.width = '60%';
             strengthBar.classList.add('medium');
             strengthText.textContent = 'Medium strength';
+            passwordInput.setCustomValidity('');
         }
         else {
             strengthBar.style.width = '100%';
             strengthBar.classList.add('strong');
             strengthText.textContent = 'Strong password';
+            passwordInput.setCustomValidity('');
         }
     });
-}
-
-if (passwordInput && passwordInput.value.length > 0) {
-    const strong =
-        passwordInput.value.length >= 8 &&
-        /[A-Z]/.test(passwordInput.value) &&
-        /[0-9]/.test(passwordInput.value) &&
-        /[\W]/.test(passwordInput.value);
-
-    if (!strong) {
-        passwordInput.setCustomValidity('Password is too weak');
-    } else {
-        passwordInput.setCustomValidity('');
-    }
-}
+});
 
 // 👁 Show / Hide Password (Font Awesome)
 document.addEventListener('click', function (e) {
