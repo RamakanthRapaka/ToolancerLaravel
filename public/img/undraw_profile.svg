@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e3e8ff"/>
+            <stop offset="100%" stop-color="#c7d2fe"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Background circle -->
+    <circle cx="64" cy="64" r="64" fill="url(#bg)"/>
+
+    <!-- Head -->
+    <circle cx="64" cy="48" r="20" fill="#ffffff"/>
+
+    <!-- Body -->
+    <path
+        d="M28 110c0-18 16-32 36-32s36 14 36 32"
+        fill="#ffffff"
+    />
+
+    <!-- Minimal facial hint -->
+    <circle cx="56" cy="46" r="2" fill="#9ca3af"/>
+    <circle cx="72" cy="46" r="2" fill="#9ca3af"/>
+</svg>
