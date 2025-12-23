@@ -16,24 +16,26 @@
                                 <h5 class="text-gray-900 mb-4">Welcome Back!</h5>
                             </div>
 
-                            <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
+                            {{-- Message --}}
+                            <div class="login-message alert d-none"></div>
+
+                            {{-- Login Form --}}
+                            <form id="loginForm" method="POST" action="{{ route('login') }}" novalidate>
                                 @csrf
 
                                 <div class="form-group mb-3">
-                                    <input type="email" name="email"
-                                           class="form-control form-control-user"
-                                           placeholder="Enter Email Address..." required>
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="Enter Email Address..." required>
                                     <div class="invalid-feedback">Email is required</div>
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <input type="password" name="password"
-                                           class="form-control form-control-user"
-                                           placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="Password" required>
                                     <div class="invalid-feedback">Password is required</div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-user w-100">
+                                <button type="submit" class="btn btn-primary w-100">
                                     Login
                                 </button>
                             </form>
@@ -46,3 +48,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/login-ajax.js') }}"></script>
+@endpush

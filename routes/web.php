@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,36 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+
+/*
+|--------------------------------------------------------------------------
+| Authentication
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])
+    ->name('login')
+    ->middleware('guest');
+
+Route::post('/login', [LoginController::class, 'login'])
+    ->middleware('guest');
+
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
+
+
+// Admin
+Route::get('/admin/dashboard', function () {
+    return 'Admin Dashboard';
+})->name('admin.dashboard')->middleware(['auth', 'role:admin']);
+
+// Expert
+Route::get('/expert/dashboard', function () {
+    return 'Expert Dashboard';
+})->name('expert.dashboard')->middleware(['auth', 'role:expert']);
+
+// User
+Route::get('/user/dashboard', function () {
+    return 'User Dashboard';
+})->name('user.dashboard')->middleware(['auth', 'role:user']);
