@@ -7,7 +7,6 @@
 <link rel="icon" type="image/x-icon" href="{{ asset('img/favIcon.png') }}">
 
 {{-- Fonts --}}
-<link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
 {{-- CSS --}}
