@@ -24,7 +24,7 @@
         <hr class="sidebar-divider my-0">
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('toolupload.index') }}">
                 <span>Tool Upload</span>
             </a>
         </li>
