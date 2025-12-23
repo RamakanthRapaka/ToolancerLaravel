@@ -16,32 +16,29 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(form.action, {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': document
-                    .querySelector('meta[name="csrf-token"]')
-                    .getAttribute('content'),
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                 'Accept': 'application/json'
             },
-            body: new FormData(form),
-            credentials: 'same-origin'
+            body: new FormData(form)
         })
-        .then(async res => {
-            if (res.status === 422) throw await res.json();
-            if (!res.ok) throw { message: 'Invalid credentials' };
-            return res.json();
-        })
-        .then(data => {
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+
+            if (!ok) {
+                throw data;
+            }
+
             messageBox.className = 'login-message alert alert-success';
-            messageBox.textContent = data.message || 'Login successful';
+            messageBox.textContent = 'Login successful. Redirecting...';
             messageBox.classList.remove('d-none');
 
             setTimeout(() => {
-                window.location.href = data.redirect || '/';
-            }, 1200);
+                window.location.href = data.redirect;
+            }, 800);
         })
         .catch(err => {
             messageBox.className = 'login-message alert alert-danger';
-            messageBox.textContent =
-                err.message || 'Email or password is incorrect';
+            messageBox.textContent = err.message || 'Login failed';
             messageBox.classList.remove('d-none');
         });
     });

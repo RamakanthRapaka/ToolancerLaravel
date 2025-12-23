@@ -6,41 +6,35 @@
         <div class="row justify-content-center h-100">
             <div class="col-sm-4 m-auto">
                 <div class="card border-0 my-5">
-                    <div class="card-body p-0">
-                        <div class="p-5">
+                    <div class="card-body p-5">
 
-                            <div class="text-center mb-4">
-                                <a class="navbar-brand d-block mb-2" href="{{ url('/') }}">
-                                    <img src="{{ asset('img/logo.png') }}" class="img-fluid w-100" />
-                                </a>
-                                <h5 class="text-gray-900 mb-4">Welcome Back!</h5>
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('img/logo.png') }}" class="img-fluid mb-3">
+                            <h5>Welcome Back!</h5>
+                        </div>
+
+                        <div class="login-message alert d-none"></div>
+
+                        <form id="loginForm" method="POST" action="{{ route('login.submit') }}" novalidate>
+                            @csrf
+
+                            <div class="mb-3">
+                                <input type="email" name="email" class="form-control"
+                                       placeholder="Email" required>
+                                <div class="invalid-feedback">Email required</div>
                             </div>
 
-                            {{-- Message --}}
-                            <div class="login-message alert d-none"></div>
+                            <div class="mb-3">
+                                <input type="password" name="password" class="form-control"
+                                       placeholder="Password" required>
+                                <div class="invalid-feedback">Password required</div>
+                            </div>
 
-                            {{-- Login Form --}}
-                            <form id="loginForm" method="POST" action="{{ route('login') }}" novalidate>
-                                @csrf
+                            <button class="btn btn-primary w-100">
+                                Login
+                            </button>
+                        </form>
 
-                                <div class="form-group mb-3">
-                                    <input type="email" name="email" class="form-control"
-                                        placeholder="Enter Email Address..." required>
-                                    <div class="invalid-feedback">Email is required</div>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <input type="password" name="password" class="form-control"
-                                        placeholder="Password" required>
-                                    <div class="invalid-feedback">Password is required</div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Login
-                                </button>
-                            </form>
-
-                        </div>
                     </div>
                 </div>
             </div>

@@ -13,61 +13,41 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
+        if (auth()->check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('auth.login');
     }
 
     /**
-     * Handle login request
+     * Handle login
      */
     public function login(Request $request)
     {
-        // ✅ Validate input
         $credentials = $request->validate([
             'email'    => 'required|email',
             'password' => 'required|string',
         ]);
 
-        // ✅ Attempt login
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
-            $user = Auth::user();
 
-            // 🔐 Role-based redirect
-            if ($user->hasRole('admin')) {
-                $redirect = route('admin.dashboard');
-            } elseif ($user->hasRole('expert')) {
-                $redirect = route('expert.dashboard');
-            } else {
-                $redirect = route('user.dashboard');
-            }
-
-            // ✅ AJAX response
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'status'   => true,
-                    'redirect' => $redirect,
-                ]);
-            }
-
-            return redirect()->intended($redirect);
-        }
-
-        // ❌ Login failed
-        if ($request->expectsJson()) {
             return response()->json([
-                'status'  => false,
-                'message' => 'Invalid email or password',
-            ], 422);
+                'status'   => true,
+                'redirect' => route('dashboard'),
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'Invalid email or password',
-        ])->withInput();
+        return response()->json([
+            'status'  => false,
+            'message' => 'Invalid email or password',
+        ], 422);
     }
 
     /**
-     * Logout user
+     * Logout
      */
     public function logout(Request $request)
     {
@@ -76,6 +56,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

@@ -3,22 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Public Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+Route::post('/register', [RegisterController::class, 'store'])
+    ->name('register.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -31,24 +29,20 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])
     ->middleware('guest');
 
 Route::post('/login', [LoginController::class, 'login'])
+    ->name('login.submit')
     ->middleware('guest');
 
-Route::post('/logout', [LoginController::class, 'logout'])
-    ->name('logout')
-    ->middleware('auth');
+/*
+|--------------------------------------------------------------------------
+| Protected Routes
+|--------------------------------------------------------------------------
+*/
 
+Route::middleware('auth')->group(function () {
 
-// Admin
-Route::get('/admin/dashboard', function () {
-    return 'Admin Dashboard';
-})->name('admin.dashboard')->middleware(['auth', 'role:admin']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-// Expert
-Route::get('/expert/dashboard', function () {
-    return 'Expert Dashboard';
-})->name('expert.dashboard')->middleware(['auth', 'role:expert']);
-
-// User
-Route::get('/user/dashboard', function () {
-    return 'User Dashboard';
-})->name('user.dashboard')->middleware(['auth', 'role:user']);
+    Route::post('/logout', [LoginController::class, 'logout'])
+        ->name('logout');
+});
