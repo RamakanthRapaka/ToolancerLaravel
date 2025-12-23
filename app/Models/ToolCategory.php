@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+class ToolCategory extends Model
+{
+    protected $fillable = ['name', 'is_active'];
+
+    public function subCategories()
+    {
+        return $this->hasMany(ToolSubCategory::class);
+    }
+}
+
