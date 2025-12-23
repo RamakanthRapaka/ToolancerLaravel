@@ -78,7 +78,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link arrowLink text-white" href="{{ url('admin/login') }}">
+                                    <a class="nav-link arrowLink text-white" href="{{ route('login') }}">
                                         Login
                                     </a>
                                 </li>
