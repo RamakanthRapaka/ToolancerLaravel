@@ -35,7 +35,7 @@
                                     <div class="invalid-feedback">Password is required</div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary w-100">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Login
                                 </button>
                             </form>
