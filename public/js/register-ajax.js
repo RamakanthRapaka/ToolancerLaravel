@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.ajax-form').forEach(form => {
 
+        /**
+         * 🔹 Clear validation error on input/change
+         */
         form.querySelectorAll('input, select, textarea').forEach(el => {
             ['input', 'change'].forEach(evt => {
                 el.addEventListener(evt, function () {
@@ -10,11 +13,55 @@ document.addEventListener('DOMContentLoaded', function () {
                     const feedback = this.closest('.form-group')
                         ?.querySelector('.invalid-feedback');
 
-                    if (feedback) feedback.style.display = 'none';
+                    if (feedback) {
+                        feedback.innerText = '';
+                        feedback.style.display = 'none';
+                    }
                 });
             });
         });
 
+        /**
+         * ✅ PASSWORD MATCH LOGIC (FORM-SCOPED)
+         */
+        const password = form.querySelector('input[name="password"]');
+        const confirmPassword = form.querySelector('input[name="password_confirmation"]');
+
+        if (password && confirmPassword) {
+            confirmPassword.addEventListener('input', () => {
+
+                if (confirmPassword.value === '') {
+                    confirmPassword.classList.remove('is-invalid');
+                    return;
+                }
+
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.classList.add('is-invalid');
+
+                    const feedback = confirmPassword.closest('.form-group')
+                        ?.querySelector('.invalid-feedback');
+
+                    if (feedback) {
+                        feedback.innerText = 'Passwords do not match';
+                        feedback.style.display = 'block';
+                    }
+                } else {
+                    confirmPassword.classList.remove('is-invalid');
+
+                    const feedback = confirmPassword.closest('.form-group')
+                        ?.querySelector('.invalid-feedback');
+
+                    if (feedback) {
+                        feedback.innerText = '';
+                        feedback.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        /**
+         * 🔹 Submit handler
+         */
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -29,9 +76,32 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Submitting...';
 
+            /**
+             * ❌ HARD STOP if passwords don’t match
+             */
+            if (password && confirmPassword && password.value !== confirmPassword.value) {
+
+                confirmPassword.classList.add('is-invalid');
+
+                const feedback = confirmPassword.closest('.form-group')
+                    ?.querySelector('.invalid-feedback');
+
+                if (feedback) {
+                    feedback.innerText = 'Passwords do not match';
+                    feedback.style.display = 'block';
+                }
+
+                confirmPassword.focus();
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                return;
+            }
+
             const formData = new FormData(form);
 
-            // 🔹 Message container inside THIS form
+            /**
+             * 🔹 Drawer message container (inside form)
+             */
             const messageBox = form.querySelector('.drawer-message');
             if (messageBox) {
                 messageBox.style.display = 'none';
@@ -57,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(data => {
 
-                    // ✅ Show success message at bottom
+                    // ✅ Show success message at bottom of drawer
                     if (messageBox) {
-                        messageBox.className = 'drawer-message alert alert-success';
+                        messageBox.className = 'drawer-message alert alert-success mt-3';
                         messageBox.innerText = data.message || 'Registration successful';
                         messageBox.style.display = 'block';
                     }
@@ -67,10 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     form.reset();
                     form.classList.remove('was-validated');
 
-                    if (typeof clearServerErrors === 'function') {
-                        clearServerErrors(form);
-                    }
-
+                    // Optional helpers (if exist)
                     if (typeof resetPasswordStrength === 'function') {
                         resetPasswordStrength(form);
                     }
@@ -78,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         resetSelectPickers(form);
                     }
 
-                    // 🔹 Close drawer after delay (optional)
+                    // 🔹 Close drawer after delay
                     setTimeout(() => {
                         const offcanvasEl = document.getElementById('loginslide');
                         const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
@@ -91,12 +158,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (err.errors) {
                         showErrors(form, err.errors);
-                    } else {
-                        if (messageBox) {
-                            messageBox.className = 'drawer-message alert alert-danger';
-                            messageBox.innerText = err.message || 'Something went wrong';
-                            messageBox.style.display = 'block';
-                        }
+                    } else if (messageBox) {
+                        messageBox.className = 'drawer-message alert alert-danger mt-3';
+                        messageBox.innerText = err.message || 'Something went wrong';
+                        messageBox.style.display = 'block';
                     }
                 })
                 .finally(() => {
@@ -106,9 +171,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    /**
+     * 🔹 Map Laravel validation errors
+     */
     function showErrors(form, errors) {
 
-        // 🔥 Remove Bootstrap validation state completely
         form.classList.remove('was-validated');
 
         form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
@@ -116,8 +183,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         form.querySelectorAll('.invalid-feedback').forEach(el => {
-            el.style.display = 'none';
             el.innerText = '';
+            el.style.display = 'none';
         });
 
         let firstInvalidField = null;
@@ -130,9 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!input) return;
 
-            // ❌ Mark invalid (server wins)
             input.classList.add('is-invalid');
-            input.classList.remove('is-valid');
 
             if (!firstInvalidField) {
                 firstInvalidField = input;
@@ -147,21 +212,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // ✅ AUTO-SCROLL + AUTO-FOCUS (NEW)
         if (firstInvalidField) {
-
-            // Scroll smoothly
             firstInvalidField.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });
 
-            // Focus (handle selectpicker separately)
-            if (firstInvalidField.classList.contains('selectpicker')) {
-                $(firstInvalidField).selectpicker('toggle');
-            } else {
-                setTimeout(() => firstInvalidField.focus(), 300);
-            }
+            setTimeout(() => firstInvalidField.focus(), 300);
         }
     }
 });
