@@ -31,6 +31,15 @@ class ToolUploadController extends Controller
     {
         $data = $request->validated();
 
+        $data['tool_sub_category_id'] = $data['sub_category_id'];
+        unset($data['sub_category_id']);
+
+        $data['pricing_detail_id'] = $data['pricing_details_id'];
+        unset($data['pricing_details_id']);
+
+        $data['demo_video_link'] = $data['tool_video_link'];
+        unset($data['tool_video_link']);
+
         // Logo upload
         if ($request->hasFile('tool_logo')) {
             $data['logo'] = $request->file('tool_logo')
