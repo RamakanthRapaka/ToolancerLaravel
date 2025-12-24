@@ -7,27 +7,46 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tool extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
-        'name',
+        'tool_name',
+
         'tool_category_id',
         'tool_sub_category_id',
+
         'pricing_type_id',
         'pricing_detail_id',
+
         'tool_status_id',
+
         'affiliate_link',
+
         'logo',
         'demo_video',
         'demo_video_link',
+
         'tags',
         'official_reviews_url',
         'comparison_group',
         'rating',
+
         'use_cases',
         'features',
+
         'short_description',
         'full_description',
     ];
+
+    /* =======================
+     | Relationships
+     ======================= */
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function category()
     {
@@ -41,12 +60,12 @@ class Tool extends Model
 
     public function pricingType()
     {
-        return $this->belongsTo(PricingType::class);
+        return $this->belongsTo(PricingType::class, 'pricing_type_id');
     }
 
     public function pricingDetail()
     {
-        return $this->belongsTo(PricingDetail::class);
+        return $this->belongsTo(PricingDetail::class, 'pricing_detail_id');
     }
 
     public function status()
@@ -54,4 +73,3 @@ class Tool extends Model
         return $this->belongsTo(ToolStatus::class, 'tool_status_id');
     }
 }
-
