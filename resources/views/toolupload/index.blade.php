@@ -213,13 +213,44 @@
             });
 
             function showErrors(errors) {
-                form.querySelectorAll('.is-invalid').forEach(e => e.classList.remove('is-invalid'));
-                for (const key in errors) {
-                    const input = form.querySelector(`[name="${key}"]`);
+
+                // Clear old errors
+                form.querySelectorAll('.is-invalid').forEach(el => {
+                    el.classList.remove('is-invalid');
+                });
+
+                form.querySelectorAll('.invalid-feedback').forEach(el => {
+                    el.innerText = '';
+                });
+
+                let firstError = null;
+
+                for (const field in errors) {
+                    const input = form.querySelector(`[name="${field}"]`);
                     if (!input) continue;
+
                     input.classList.add('is-invalid');
+
+                    const feedback = input.closest('.mb-3')?.querySelector('.invalid-feedback');
+                    if (feedback) {
+                        feedback.innerText = errors[field][0];
+                    }
+
+                    if (!firstError) {
+                        firstError = input;
+                    }
+                }
+
+                // Scroll to first error
+                if (firstError) {
+                    firstError.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                    firstError.focus();
                 }
             }
+
         });
     </script>
 @endsection
