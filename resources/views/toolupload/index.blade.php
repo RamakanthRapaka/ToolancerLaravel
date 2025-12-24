@@ -56,7 +56,7 @@
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Your affiliate link</label>
                             <input type="url" name="affiliate_link" class="form-control">
-                            <div class="invalid-feedback">Enter a valid URL</div>
+                            <div class="invalid-feedback">Enter a valid affiliate link</div>
                         </div>
 
                         {{-- Pricing Type --}}
@@ -80,6 +80,7 @@
                                     <option value="{{ $detail->id }}">{{ $detail->label }}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback">Pricing Details is required</div>
                         </div>
 
                         {{-- Tool Logo --}}
@@ -93,6 +94,7 @@
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Demo Video of Tool</label>
                             <input type="file" name="tool_video" class="form-control" accept="video/*">
+                            <div class="invalid-feedback">Upload a valid video</div>
                         </div>
 
                         {{-- Video Link --}}
@@ -107,18 +109,21 @@
                             <label class="form-label">Tags</label>
                             <input type="text" name="tags" class="form-control"
                                 placeholder="GPT, No-Code, Automation">
+                            <div class="invalid-feedback">Enter valid tags</div>
                         </div>
 
                         {{-- Reviews URL --}}
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Official Reviews URL</label>
                             <input type="url" name="official_reviews_url" class="form-control">
+                            <div class="invalid-feedback">Enter valid Official Reviews URL</div>
                         </div>
 
                         {{-- Comparison Group --}}
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Tool Comparison Group</label>
                             <input type="text" name="comparison_group" class="form-control">
+                            <div class="invalid-feedback">Enter valid Tool Comparison Group</div>
                         </div>
 
                         {{-- Use Cases --}}
@@ -139,13 +144,13 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Short Description</label>
                             <textarea name="short_description" class="form-control" rows="3" required></textarea>
-                            <div class="invalid-feedback">Required</div>
+                            <div class="invalid-feedback">Short Description Required</div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Full Description</label>
                             <textarea name="full_description" class="form-control" rows="3" required></textarea>
-                            <div class="invalid-feedback">Required</div>
+                            <div class="invalid-feedback">Full Description Required</div>
                         </div>
 
                         <div class="col-md-12 mt-3">
@@ -171,6 +176,9 @@
             form.addEventListener('submit', e => {
                 e.preventDefault();
 
+                successBox.classList.add('d-none');
+                successBox.innerText = '';
+
                 if (!form.checkValidity()) {
                     form.classList.add('was-validated');
                     return;
@@ -193,6 +201,11 @@
                         btn.disabled = false;
                         btn.innerText = 'Submit';
 
+                        if (!res.ok && res.status !== 422) {
+                            alert('Unexpected error. Please try again.');
+                            return;
+                        }
+
                         if (res.status === 422) {
                             const data = await res.json();
                             showErrors(data.errors);
@@ -203,6 +216,12 @@
                         successBox.classList.remove('d-none');
                         successBox.innerText = data.message;
                         form.reset();
+
+                        // also remove any leftover states
+                        form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
+                            el.classList.remove('is-valid', 'is-invalid');
+                        });
+
                         form.classList.remove('was-validated');
                     })
                     .catch(() => {
@@ -213,12 +232,6 @@
             });
 
             function showErrors(errors) {
-
-                // Clear old errors
-                form.querySelectorAll('.is-invalid').forEach(el => {
-                    el.classList.remove('is-invalid');
-                });
-
                 form.querySelectorAll('.invalid-feedback').forEach(el => {
                     el.innerText = '';
                 });
@@ -229,6 +242,10 @@
                     const input = form.querySelector(`[name="${field}"]`);
                     if (!input) continue;
 
+                    // ❌ Remove green tick if present
+                    input.classList.remove('is-valid');
+
+                    // ✅ Force red error
                     input.classList.add('is-invalid');
 
                     const feedback = input.closest('.mb-3')?.querySelector('.invalid-feedback');
@@ -241,7 +258,6 @@
                     }
                 }
 
-                // Scroll to first error
                 if (firstError) {
                     firstError.scrollIntoView({
                         behavior: 'smooth',
@@ -250,6 +266,16 @@
                     firstError.focus();
                 }
             }
+
+            form.querySelectorAll('input, select, textarea').forEach(el => {
+                el.addEventListener('input', () => {
+                    el.classList.remove('is-invalid');
+                });
+
+                el.addEventListener('change', () => {
+                    el.classList.remove('is-invalid');
+                });
+            });
 
         });
     </script>
