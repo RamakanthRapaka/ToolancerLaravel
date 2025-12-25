@@ -16,7 +16,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('toolgrid.index') }}">
                 <span>Categories</span>
             </a>
         </li>
@@ -30,7 +30,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('users.index') }}">
                 <span>User Profile</span>
             </a>
         </li>

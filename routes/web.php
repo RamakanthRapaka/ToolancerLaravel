@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ToolUploadController;
+use App\Http\Controllers\ToolGridController;
+use App\Http\Controllers\UserGridController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,21 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+
+    Route::get('/categories', [ToolGridController::class, 'index'])
+        ->name('toolgrid.index');
+
+    Route::get('/tools/grid/data', [ToolGridController::class, 'data'])
+        ->name('tools.grid.data');
+
+    Route::get('/tools/{tool}', [ToolGridController::class, 'show'])->name('tools.show');
+    Route::get('/tools/{tool}/edit', [ToolGridController::class, 'edit'])->name('tools.edit');
+
+    Route::get('/users', [UserGridController::class, 'index'])->name('users.index');
+    Route::get('/users/data', [UserGridController::class, 'data'])->name('users.grid.data');
+
+    Route::get('/users/{user}', [UserGridController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserGridController::class, 'edit'])->name('users.edit');
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
