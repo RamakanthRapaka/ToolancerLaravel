@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ToolUploadController;
 use App\Http\Controllers\ToolGridController;
 use App\Http\Controllers\UserGridController;
+use App\Http\Controllers\Auth\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/users/{user}', [UserGridController::class, 'show'])->name('users.show');
     Route::get('/users/{user}/edit', [UserGridController::class, 'edit'])->name('users.edit');
+
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
