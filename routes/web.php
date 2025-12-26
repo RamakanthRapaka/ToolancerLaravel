@@ -50,6 +50,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/tool-upload', [ToolUploadController::class, 'store'])
         ->name('toolupload.store');
 
+    Route::post(
+        '/tool/{tool}/status',
+        [ToolGridController::class, 'updateStatus']
+    )->name('tool.updateStatus')
+        ->middleware('role:admin');
+
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');

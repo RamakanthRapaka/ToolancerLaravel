@@ -22,9 +22,9 @@ class ToolGridController extends Controller
         return response()->json([
             'data' => $tools->map(function ($tool) {
 
-                $statusBadge = match ($tool->status) {
-                    'active' => '<span class="badge bg-success">Active</span>',
-                    'rejected' => '<span class="badge bg-danger">Rejected</span>',
+                $statusBadge = match ($tool->tool_status_id) {
+                    2 => '<span class="badge bg-success">Active</span>',
+                    3 => '<span class="badge bg-danger">Rejected</span>',
                     default => '<span class="badge bg-warning text-dark">Pending</span>',
                 };
 
@@ -42,6 +42,34 @@ class ToolGridController extends Controller
                 ];
             })
         ]);
+    }
+
+    public function updateStatus(Request $request, Tool $tool)
+    {
+        $request->validate([
+            'status' => 'required|in:active,pending,rejected',
+        ]);
+
+        // ✅ TEXT → NUMBER mapping
+        $statusMap = [
+            'active' => 2,
+            'pending' => 1,
+            'rejected' => 3,
+        ];
+
+        $tool->update([
+            'tool_status_id' => $statusMap[$request->input('status')],
+        ]);
+
+        // AJAX response
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Tool status updated successfully',
+            ]);
+        }
+
+        return back()->with('success', 'Tool status updated');
     }
 
 }
