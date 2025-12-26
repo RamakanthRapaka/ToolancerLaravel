@@ -63,15 +63,15 @@ class ProfileController extends Controller
 
                 $expertData = [
                     'tags'           => $this->stringify($request->input('tags')),
-                    'expertise_tags' => $this->stringify($request->input('expertiseTags')),
-                    'tools_known'    => $this->stringify($request->input('toolsKnown')),
+                    'expertise_tags' => $this->stringify($request->input('expertise_tags')),
+                    'tools_known'    => $this->stringify($request->input('tools_known')),
                     'skills'         => $this->stringify($request->input('skills')),
                     'location'       => $request->input('location'),
                     'languages'      => $this->stringify($request->input('languages')),
                     'rate'           => $request->input('rate'),
-                    'portfolio_url'  => $request->input('portfolioURL'),
-                    'short_bio'      => $request->input('shortBio'),
-                    'profile_bio'    => $request->input('profileBio'),
+                    'portfolio_url'  => $request->input('portfolio_url'),
+                    'short_bio'      => $request->input('short_bio'),
+                    'profile_bio'    => $request->input('profile_bio'),
                 ];
 
                 if ($filePath) {
