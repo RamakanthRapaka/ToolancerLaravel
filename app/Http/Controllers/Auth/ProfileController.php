@@ -19,21 +19,6 @@ class ProfileController extends Controller
         return view('profile.profile', [
             'user' => $user,
             'expert' => $user->expert ?? null,
-            'mode' => 'view', // 👈 important
-        ]);
-    }
-
-    /**
-     * Edit profile (edit mode)
-     */
-    public function edit()
-    {
-        $user = auth()->user();
-
-        return view('profile.profile', [
-            'user' => $user,
-            'expert' => $user->expert ?? null,
-            'mode' => 'edit', // 👈 important
         ]);
     }
 
