@@ -21,15 +21,17 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         $userId = auth()->id();
+        $isExpert = auth()->user()?->hasRole('expert');
 
         return [
+
             /**
              * -----------------------
              * User fields
              * -----------------------
              */
             'name' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
             ],
@@ -61,13 +63,18 @@ class ProfileUpdateRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:2048', // 2MB
+                'max:2048',
             ],
 
-            'tags' => [
-                'nullable',
+            // ✅ FIXED
+            'tags' => $isExpert
+                ? ['required', 'array', 'min:1']
+                : ['nullable', 'array'],
+
+            // ✅ FIXED
+            'tags.*' => [
                 'string',
-                'max:255',
+                'max:100',
             ],
 
             'expertise_tags' => [
@@ -132,10 +139,12 @@ class ProfileUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'  => 'Name is required',
             'email.required' => 'Email is required',
             'email.email'    => 'Please enter a valid email',
             'email.unique'   => 'This email is already in use',
+
+            'tags.required' => 'Please select at least one tag',
+            'tags.min'      => 'Please select at least one tag',
 
             'profile_image.image' => 'Profile image must be an image file',
             'profile_image.max'   => 'Profile image must be less than 2MB',

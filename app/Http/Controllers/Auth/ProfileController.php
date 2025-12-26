@@ -10,20 +10,20 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
     /**
-     * Show profile (view-only mode)
+     * Show profile page (same page for view + update)
      */
     public function show()
     {
         $user = auth()->user();
 
         return view('profile.profile', [
-            'user' => $user,
+            'user'   => $user,
             'expert' => $user->expert ?? null,
         ]);
     }
 
     /**
-     * Update profile (supports AJAX + normal submit)
+     * Update profile (AJAX + normal submit)
      */
     public function update(ProfileUpdateRequest $request)
     {
@@ -34,30 +34,23 @@ class ProfileController extends Controller
 
         try {
 
-            /**
-             * -------------------------
-             * Update User table
-             * -------------------------
-             */
-            $user->update(
-                $request->only([
-                    'name',
-                    'display_name',
-                    'email',
-                    'mobile',
-                ])
-            );
+            /* ===============================
+             * Update USER table
+             * =============================== */
+            $user->update([
+                'display_name' => $request->display_name,
+                'email'        => $request->email,
+                'mobile'       => $request->mobile,
+            ]);
 
-            /**
-             * -------------------------
-             * Update Expert profile (only if expert)
-             * -------------------------
-             */
+            /* ===============================
+             * Update EXPERT table (if expert)
+             * =============================== */
             if ($user->hasRole('expert') && $user->expert) {
 
                 $expert = $user->expert;
 
-                // Handle profile image replacement
+                // Profile image upload
                 if ($request->hasFile('profile_image')) {
 
                     if ($expert->profile_file) {
@@ -69,16 +62,16 @@ class ProfileController extends Controller
                 }
 
                 $expertData = [
-                    'tags' => $this->stringify($request->input('tags')),
+                    'tags'           => $this->stringify($request->input('tags')),
                     'expertise_tags' => $this->stringify($request->input('expertiseTags')),
-                    'tools_known' => $this->stringify($request->input('toolsKnown')),
-                    'skills' => $this->stringify($request->input('skills')),
-                    'location' => $request->input('location'),
-                    'languages' => $this->stringify($request->input('languages')),
-                    'rate' => $request->input('rate'),
-                    'portfolio_url' => $request->input('portfolioURL'),
-                    'short_bio' => $request->input('shortBio'),
-                    'profile_bio' => $request->input('profileBio'),
+                    'tools_known'    => $this->stringify($request->input('toolsKnown')),
+                    'skills'         => $this->stringify($request->input('skills')),
+                    'location'       => $request->input('location'),
+                    'languages'      => $this->stringify($request->input('languages')),
+                    'rate'           => $request->input('rate'),
+                    'portfolio_url'  => $request->input('portfolioURL'),
+                    'short_bio'      => $request->input('shortBio'),
+                    'profile_bio'    => $request->input('profileBio'),
                 ];
 
                 if ($filePath) {
@@ -90,10 +83,12 @@ class ProfileController extends Controller
 
             DB::commit();
 
-            // AJAX response
-            if ($request->expectsJson()) {
+            /* ===============================
+             * AJAX response
+             * =============================== */
+            if ($request->ajax()) {
                 return response()->json([
-                    'status' => true,
+                    'status'  => true,
                     'message' => 'Profile updated successfully',
                 ]);
             }
@@ -106,14 +101,13 @@ class ProfileController extends Controller
 
             DB::rollBack();
 
-            // cleanup uploaded file if DB failed
             if ($filePath) {
                 Storage::disk('public')->delete($filePath);
             }
 
-            if ($request->expectsJson()) {
+            if ($request->ajax()) {
                 return response()->json([
-                    'status' => false,
+                    'status'  => false,
                     'message' => 'Profile update failed',
                 ], 500);
             }
@@ -125,7 +119,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Helper: convert array inputs to comma-separated string
+     * Convert array to comma-separated string
      */
     private function stringify($value): ?string
     {
