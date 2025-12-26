@@ -145,10 +145,27 @@
                                 </div>
 
                                 {{-- FILE INPUT --}}
+                                {{-- PROFILE IMAGE UPLOAD + PREVIEW (RIGHT SIDE ONLY) --}}
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Profile Image</label>
-                                        <input type="file" name="profile_image" class="form-control">
+
+                                        <input type="file" name="profile_image" class="form-control" accept="image/*"
+                                            onchange="previewProfileImage(event)">
+
+                                        {{-- Existing image preview --}}
+                                        @if (!empty($expert->profile_file))
+                                            <div class="mt-2">
+                                                <img id="existingProfileImage"
+                                                    src="{{ asset('storage/' . $expert->profile_file) }}"
+                                                    alt="Profile Image" class="img-thumbnail" style="max-width:120px;">
+                                            </div>
+                                        @endif
+
+                                        {{-- New image preview --}}
+                                        <div class="mt-2 d-none" id="newImagePreviewBox">
+                                            <img id="newProfileImage" class="img-thumbnail" style="max-width:120px;">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -287,5 +304,23 @@
                 }
             }
         });
+    </script>
+    <script>
+        function previewProfileImage(event) {
+            const input = event.target;
+            const previewBox = document.getElementById('newImagePreviewBox');
+            const previewImg = document.getElementById('newProfileImage');
+
+            if (!input.files || !input.files[0]) return;
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewBox.classList.remove('d-none');
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
     </script>
 @endpush
