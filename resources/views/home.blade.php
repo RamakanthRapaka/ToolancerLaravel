@@ -94,18 +94,23 @@
                                 <div class="card px-3 py-2">
                                     <div class="cardRow d-flex align-items-center">
                                         <div class="cardImg">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                class="card-img-top" alt="iconImage">
+                                            <img src="{{ $tool->logo ? asset('storage/' . $tool->logo) : asset('img/default-tool.png') }}"
+                                                class="card-img-top" alt="{{ $tool->tool_name }}">
                                         </div>
                                         <div class="card-body p-0">
-                                            <h5 class="card-title text-truncate">Slack Team</h5>
+                                            <h5 class="card-title text-truncate">
+                                                {{ $tool->tool_name }}
+                                            </h5>
                                         </div>
                                     </div>
-                                    <p class="text-truncate">Team Communication</p>
+                                    <p class="text-truncate">
+                                        {{ $tool->category->name ?? 'Tool' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+
 
                     {{-- copy/paste your other cards as they are – no PHP needed --}}
                     {{-- ... (keep the rest of your tool cards unchanged) ... --}}
@@ -131,26 +136,38 @@
                     </div>
 
                     @foreach ($experts as $expert)
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="colWidget">
-                            <div class="card p-3">
-                                <div class="cardRow d-flex align-items-center">
-                                    <div class="cardImg">
-                                        <img src="https://s3.amazonaws.com/media.mixrank.com/profilepic/bcafe3d79a402d97856f8f5368888019"
-                                            class="card-img-top" alt="iconImage">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="colWidget">
+                                <div class="card p-3">
+                                    <div class="cardRow d-flex align-items-center">
+                                        <div class="cardImg">
+                                            <img src="{{ $expert->expert?->profile_file
+                                                ? asset('storage/' . $expert->expert->profile_file)
+                                                : asset('img/default-avatar.png') }}"
+                                                class="card-img-top" alt="Expert">
+                                        </div>
+
+                                        <div class="card-body p-0">
+                                            <h5 class="card-title text-truncate">
+                                                {{ $expert->display_name ?? $expert->name }}
+                                            </h5>
+                                            <h6>{{ $expert->expert?->rate ?? '' }}</h6>
+                                        </div>
                                     </div>
-                                    <div class="card-body p-0">
-                                        <h5 class="card-title text-truncate">Mak Johnson</h5>
-                                        <h6>405th</h6>
+
+                                    <p class="text-truncate">
+                                        {{ $expert->expert?->skills ?? '' }}
+                                    </p>
+
+                                    <div class="col-12">
+                                        <a class="arrowLink d-block text-center"
+                                            href="{{ route('users.show', $expert->id) }}">
+                                            Hire Details
+                                        </a>
                                     </div>
-                                </div>
-                                <p class="text-truncate">SEO, Ahrets</p>
-                                <div class="col-12">
-                                    <a class="arrowLink d-block text-center" href="#">Hire Details</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
 
                     {{-- repeat the other 3 expert cards same as your original --}}
