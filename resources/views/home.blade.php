@@ -116,7 +116,7 @@
                     {{-- ... (keep the rest of your tool cards unchanged) ... --}}
 
                     <div class="d-flex justify-content-end">
-                        <a class="arrowLink" href="{{ url('expert-tools') }}">
+                        <a class="arrowLink" href="{{ route('expert.tools') }}">
                             View All Tools
                         </a>
                     </div>

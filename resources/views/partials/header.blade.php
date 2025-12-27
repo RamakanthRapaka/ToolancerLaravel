@@ -63,11 +63,11 @@
                                 </li>
 
                                 <li class="nav-item {{ request()->is('expert-tools*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{ url('expert-tools') }}">Tools</a>
+                                    <a class="nav-link" href="{{ route('expert.tools') }}">Tools</a>
                                 </li>
 
                                 <li class="nav-item {{ request()->is('expert-users*') ? 'active' : '' }}">
-                                    <a class="nav-link" href="{{ url('expert-users') }}">Tool Expert</a>
+                                    <a class="nav-link" href="{{ route('expert.users') }}">Tool Expert</a>
                                 </li>
 
                                 <li class="nav-item">

@@ -25,4 +25,27 @@ class HomeController extends Controller
 
         return view('home', compact('tools', 'experts'));
     }
+
+    public function tools()
+    {
+        $tools = Tool::with(['category', 'pricingType'])
+            ->where('tool_status_id', 2)
+            ->get();
+
+        return view('tools.all', compact('tools'));
+    }
+
+
+    /**
+     * Show all experts
+     */
+    public function experts()
+    {
+        $experts = User::with('expert')
+            ->whereHas('roles', fn($q) => $q->where('name', 'expert'))
+            ->get();
+
+        return view('experts.index', compact('experts'));
+    }
+
 }

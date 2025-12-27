@@ -17,6 +17,11 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/expert-tools', [HomeController::class, 'tools'])
+    ->name('expert.tools');
+Route::get('/expert-users', [HomeController::class, 'experts'])
+    ->name('expert.users');
+
 
 Route::post('/register', [RegisterController::class, 'store'])
     ->name('register.store');
