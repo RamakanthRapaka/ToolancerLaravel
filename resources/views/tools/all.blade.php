@@ -9,10 +9,10 @@
                     <p>Find the right AI Tool and tools expert to power your business.</p>
                     <div class="d-flex gap-3">
                         <div class="d-flex justify-content-end">
-                            <a class="arrowLink" href="{{ url('expert-tools') }}">Latest Tools</a>
+                            <a class="arrowLink" href="{{ route('expert.tools') }}">Latest Tools</a>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <a class="arrowLink_Nbg border border-1" href="{{ url('expert-users') }}">Tools Expert</a>
+                            <a class="arrowLink_Nbg border border-1" href="{{ route('expert.users') }}">Tools Expert</a>
                         </div>
                     </div>
                 </div>
