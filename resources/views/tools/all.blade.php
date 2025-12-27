@@ -42,158 +42,17 @@
                         </span>
                     </div>
                     <ul class="list-unstyled d-flex flex-wrap gap-4 justify-content-center">
-                        <li data-aos="fade-up" data-aos-duration="200" id="all" class="active">All</li>
-                        <li data-aos="fade-up" data-aos-duration="100" id="marketing">Marketing</li>
-                        <li data-aos="fade-up" data-aos-duration="200" id="ai">AI</li>
-                        <li data-aos="fade-up" data-aos-duration="200" id="automation">Automation</li>
-                        <li data-aos="fade-up" data-aos-duration="200" id="crm">CRM</li>
-                        <li data-aos="fade-up" data-aos-duration="200" id="design">Design</li>
-                        <li data-aos="fade-up" data-aos-duration="200" id="email">Email</li>
-                        <li data-aos="fade-up" data-aos-duration="200" id="analytics">Analytics</li>
+                        <li class="active" data-category="all">All</li>
+                        @foreach ($categories as $category)
+                            <li data-category="{{ $category->id }}">{{ $category->name }}</li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="tabContent gridcontent py-4">
                     <div class="tabs">
                         <div class="col-8 m-auto">
-                            <div class="row">
-                                <div class="col-md-6 marketing">
-                                    <div class="colWidget">
-                                        <div class="card p-3">
-                                            <div class="cardRow d-flex align-items-center">
-                                                <div class="cardImg"><img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                        class="card-img-top" alt="iconImage">
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <h5 class="card-title text-truncate">Slack Team
-                                                    </h5>
-                                                    <h6class="text-truncate">Team Communication</h6>
-                                                </div>
-                                                <div class="align-self-start">
-                                                    <span class="badge rounded-pill text-grey topbadge">Freemium</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <a class="arrowLink" href="tool-view.php">View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ai">
-                                    <div class="colWidget">
-                                        <div class="card p-3">
-                                            <div class="cardRow d-flex align-items-center">
-                                                <div class="cardImg"><img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                        class="card-img-top" alt="iconImage">
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <h5 class="card-title text-truncate">Slack Team
-                                                    </h5>
-                                                    <h6class="text-truncate">Team Communication</h6>
-                                                </div>
-                                                <div class="align-self-start">
-                                                    <span class="badge rounded-pill text-grey topbadge">Freemium</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <a class="arrowLink" href="tool-view.php">View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 design">
-                                    <div class="colWidget">
-                                        <div class="card p-3">
-                                            <div class="cardRow d-flex align-items-center">
-                                                <div class="cardImg"><img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                        class="card-img-top" alt="iconImage">
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <h5 class="card-title text-truncate">Slack Team
-                                                    </h5>
-                                                    <h6class="text-truncate">Team Communication</h6>
-                                                </div>
-                                                <div class="align-self-start">
-                                                    <span class="badge rounded-pill text-grey topbadge">Freemium</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <a class="arrowLink" href="tool-view.php">View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="colWidget">
-                                        <div class="card p-3">
-                                            <div class="cardRow d-flex align-items-center">
-                                                <div class="cardImg"><img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                        class="card-img-top" alt="iconImage">
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <h5 class="card-title text-truncate">Slack Team
-                                                    </h5>
-                                                    <h6class="text-truncate">Team Communication</h6>
-                                                </div>
-                                                <div class="align-self-start">
-                                                    <span class="badge rounded-pill text-grey topbadge">Freemium</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <a class="arrowLink" href="tool-view.php">View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="colWidget">
-                                        <div class="card p-3">
-                                            <div class="cardRow d-flex align-items-center">
-                                                <div class="cardImg"><img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                        class="card-img-top" alt="iconImage">
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <h5 class="card-title text-truncate">Slack Team
-                                                    </h5>
-                                                    <h6class="text-truncate">Team Communication</h6>
-                                                </div>
-                                                <div class="align-self-start">
-                                                    <span class="badge rounded-pill text-grey topbadge">Freemium</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <a class="arrowLink" href="tool-view.php">View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="colWidget">
-                                        <div class="card p-3">
-                                            <div class="cardRow d-flex align-items-center">
-                                                <div class="cardImg"><img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                                        class="card-img-top" alt="iconImage">
-                                                </div>
-                                                <div class="card-body p-0">
-                                                    <h5 class="card-title text-truncate">Slack Team
-                                                    </h5>
-                                                    <h6class="text-truncate">Team Communication</h6>
-                                                </div>
-                                                <div class="align-self-start">
-                                                    <span class="badge rounded-pill text-grey topbadge">Freemium</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end mt-3">
-                                                <a class="arrowLink" href="tool-view.php">View Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="row" id="toolsContainer">
+                                {{-- AJAX tools will load here --}}
                             </div>
                         </div>
                     </div>
@@ -203,3 +62,6 @@
         </div>
     </section>
 @endsection
+<script>
+    window.TOOL_AJAX_URL = "{{ route('expert.tools.ajax') }}";
+</script>

@@ -72,4 +72,19 @@ class Tool extends Model
     {
         return $this->belongsTo(ToolStatus::class, 'tool_status_id');
     }
+
+    public function getLogoUrlAttribute()
+    {
+        if (!$this->logo) {
+            return asset('img/default-tool.png');
+        }
+
+        // If already full URL (edge case safety)
+        if (str_starts_with($this->logo, 'http')) {
+            return $this->logo;
+        }
+
+        return asset('storage/' . $this->logo);
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\ToolCategory;
 
 class HomeController extends Controller
 {
@@ -28,13 +29,12 @@ class HomeController extends Controller
 
     public function tools()
     {
-        $tools = Tool::with(['category', 'pricingType'])
-            ->where('tool_status_id', 2)
+        $categories = ToolCategory::where('is_active', 1)
+            ->orderBy('name')
             ->get();
 
-        return view('tools.all', compact('tools'));
+        return view('tools.all', compact('categories'));
     }
-
 
     /**
      * Show all experts
@@ -46,6 +46,27 @@ class HomeController extends Controller
             ->get();
 
         return view('experts.index', compact('experts'));
+    }
+    public function ajax(Request $request)
+    {
+        $query = Tool::with(['category', 'pricingType'])
+            ->where('tool_status_id', 1);
+
+        // 🔍 Search
+        if ($request->filled('search')) {
+            $query->where('tool_name', 'like', '%' . $request->search . '%');
+        }
+
+        // 🧩 Category filter
+        if ($request->category && $request->category !== 'all') {
+            $query->where('tool_category_id', $request->category);
+        }
+
+        $tools = $query->latest()->get();
+
+        return response()->json([
+            'html' => view('tools.partials.cards', compact('tools'))->render()
+        ]);
     }
 
 }

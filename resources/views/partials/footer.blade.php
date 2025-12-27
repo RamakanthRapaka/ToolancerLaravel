@@ -135,6 +135,7 @@
 <script src="{{ asset('js/form-helpers.js') }}"></script>
 <script src="{{ asset('js/loginValidation.js') }}"></script>
 <script src="{{ asset('js/register-ajax.js') }}"></script>
+<script src="{{ asset('js/allTools.js') }}"></script>
 
 <script>
     jQuery('.offcanvas .nav-item a').click(function() {

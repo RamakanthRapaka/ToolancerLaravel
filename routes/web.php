@@ -21,7 +21,8 @@ Route::get('/expert-tools', [HomeController::class, 'tools'])
     ->name('expert.tools');
 Route::get('/expert-users', [HomeController::class, 'experts'])
     ->name('expert.users');
-
+Route::get('/expert-tools/ajax', [HomeController::class, 'ajax'])
+    ->name('expert.tools.ajax');
 
 Route::post('/register', [RegisterController::class, 'store'])
     ->name('register.store');
