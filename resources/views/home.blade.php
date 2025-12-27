@@ -2,7 +2,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <section class="heroBanner py-5 position-relative">
         <div class="container py-lg-5 pb-5">
             <div class="row align-items-center">
@@ -89,23 +88,24 @@
                     </div>
 
                     {{-- Repeated cards – you can later loop these from DB --}}
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="colWidget">
-                            <div class="card px-3 py-2">
-                                <div class="cardRow d-flex align-items-center">
-                                    <div class="cardImg">
-                                        <img
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
-                                            class="card-img-top" alt="iconImage">
+                    @foreach ($tools as $tool)
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="colWidget">
+                                <div class="card px-3 py-2">
+                                    <div class="cardRow d-flex align-items-center">
+                                        <div class="cardImg">
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTaA3_cb-XzsW4FflXlD9nbnk5UCj0lzM9Fg&s"
+                                                class="card-img-top" alt="iconImage">
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <h5 class="card-title text-truncate">Slack Team</h5>
+                                        </div>
                                     </div>
-                                    <div class="card-body p-0">
-                                        <h5 class="card-title text-truncate">Slack Team</h5>
-                                    </div>
+                                    <p class="text-truncate">Team Communication</p>
                                 </div>
-                                <p class="text-truncate">Team Communication</p>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
 
                     {{-- copy/paste your other cards as they are – no PHP needed --}}
                     {{-- ... (keep the rest of your tool cards unchanged) ... --}}
@@ -130,13 +130,13 @@
                         </div>
                     </div>
 
+                    @foreach ($experts as $expert)
                     <div class="col-lg-3 col-sm-6">
                         <div class="colWidget">
                             <div class="card p-3">
                                 <div class="cardRow d-flex align-items-center">
                                     <div class="cardImg">
-                                        <img
-                                            src="https://s3.amazonaws.com/media.mixrank.com/profilepic/bcafe3d79a402d97856f8f5368888019"
+                                        <img src="https://s3.amazonaws.com/media.mixrank.com/profilepic/bcafe3d79a402d97856f8f5368888019"
                                             class="card-img-top" alt="iconImage">
                                     </div>
                                     <div class="card-body p-0">
@@ -151,6 +151,7 @@
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
                     {{-- repeat the other 3 expert cards same as your original --}}
 
@@ -161,5 +162,4 @@
             </div>
         </div>
     </section>
-
 @endsection

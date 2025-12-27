@@ -8,6 +8,7 @@ use App\Http\Controllers\ToolUploadController;
 use App\Http\Controllers\ToolGridController;
 use App\Http\Controllers\UserGridController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,7 @@ use App\Http\Controllers\Auth\ProfileController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/register', [RegisterController::class, 'store'])
     ->name('register.store');
