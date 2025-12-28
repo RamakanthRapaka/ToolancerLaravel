@@ -41,11 +41,7 @@ class HomeController extends Controller
      */
     public function experts()
     {
-        $experts = User::with('expert')
-            ->whereHas('roles', fn($q) => $q->where('name', 'expert'))
-            ->get();
-
-        return view('experts.index', compact('experts'));
+        return view('experts.index');
     }
     public function ajax(Request $request)
     {
@@ -66,6 +62,28 @@ class HomeController extends Controller
 
         return response()->json([
             'html' => view('tools.partials.cards', compact('tools'))->render()
+        ]);
+    }
+
+    public function expertsAjax(Request $request)
+    {
+        $query = User::with('expert')
+            ->whereHas('roles', fn($q) => $q->where('name', 'expert'));
+
+        // 🔍 Search (name or skills)
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhereHas('expert', function ($e) use ($request) {
+                        $e->where('skills', 'like', '%' . $request->search . '%');
+                    });
+            });
+        }
+
+        $experts = $query->latest()->get();
+
+        return response()->json([
+            'html' => view('experts.partials.cards', compact('experts'))->render()
         ]);
     }
 

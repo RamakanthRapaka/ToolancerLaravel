@@ -134,8 +134,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 <script src="{{ asset('js/form-helpers.js') }}"></script>
 <script src="{{ asset('js/loginValidation.js') }}"></script>
-<script src="{{ asset('js/register-ajax.js') }}"></script>
-<script src="{{ asset('js/allTools.js') }}"></script>
+<script src="{{ asset(path: 'js/register-ajax.js') }}"></script>
+<script src="{{ asset(path: 'js/allTools.js') }}"></script>
+<script src="{{ asset(path: 'js/allExperts.js') }}"></script>
 
 <script>
     jQuery('.offcanvas .nav-item a').click(function() {

@@ -1,7 +1,5 @@
 
 $(document).ready(function () {
-    console.log('hello');
-
     let category = 'all';
     let search   = '';
 

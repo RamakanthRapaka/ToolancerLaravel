@@ -23,6 +23,8 @@ Route::get('/expert-users', [HomeController::class, 'experts'])
     ->name('expert.users');
 Route::get('/expert-tools/ajax', [HomeController::class, 'ajax'])
     ->name('expert.tools.ajax');
+Route::get('/expert-users/ajax', [HomeController::class, 'expertsAjax'])
+    ->name('expert.users.ajax');
 
 Route::post('/register', [RegisterController::class, 'store'])
     ->name('register.store');
