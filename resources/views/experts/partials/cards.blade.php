@@ -5,7 +5,7 @@
                 <div class="card p-3 h-100">
                     <div class="cardRow d-flex align-items-center">
                         <div class="cardImg">
-                            <img src="{{ $expert->profile_photo_url ?? asset('img/default-user.png') }}"
+                            <img src="{{ $expert->expert->profile_file_url }}"
                                  class="card-img-top" alt="{{ $expert->name }}">
                         </div>
 

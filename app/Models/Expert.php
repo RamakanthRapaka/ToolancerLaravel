@@ -31,4 +31,12 @@ class Expert extends Model
         'skills' => 'array',
         'languages' => 'array',
     ];
+
+    public function getProfileFileUrlAttribute()
+    {
+        return $this->profile_file
+            ? asset('storage/' . $this->profile_file)
+            : asset('img/default-user.png');
+    }
+
 }
