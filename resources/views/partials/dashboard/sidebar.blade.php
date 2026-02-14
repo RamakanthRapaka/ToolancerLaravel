@@ -15,6 +15,7 @@
             <hr class="sidebar-divider my-0">
         </li>
 
+        {{-- Categories --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('toolgrid.index') }}">
                 <span>Categories</span>
@@ -23,17 +24,21 @@
 
         <hr class="sidebar-divider my-0">
 
+        {{-- Tool Upload --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('toolupload.index') }}">
                 <span>Tool Upload</span>
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.index') }}">
-                <span>User Profile</span>
-            </a>
-        </li>
+        {{-- User Profile (Admins Only) --}}
+        @if (Auth::user()->hasRole('admin'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index') }}">
+                    <span>User Profile</span>
+                </a>
+            </li>
+        @endif
 
     </ul>
 </div>

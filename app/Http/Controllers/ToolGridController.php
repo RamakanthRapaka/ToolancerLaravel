@@ -46,13 +46,18 @@ class ToolGridController extends Controller
 
     public function updateStatus(Request $request, Tool $tool)
     {
-        // 🔒 Restrict to admin only
-    if (!Auth::user()->hasRole('admin')) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Unauthorized action'
-        ], 403);
-    }
+        $user = Auth::user();
+
+        // ✅ Allow if Admin OR Owner
+        if (
+            ! $user->hasRole('admin') &&
+            $tool->user_id !== $user->id
+        ) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You can edit only your own tools',
+            ], 403);
+        }
 
         $request->validate([
             'status' => 'required|in:active,pending,rejected',
@@ -78,5 +83,19 @@ class ToolGridController extends Controller
         }
 
         return back()->with('success', 'Tool status updated');
+    }
+
+    public function edit(Tool $tool)
+    {
+        $user = Auth::user();
+
+        if (
+            ! $user->hasRole('admin') &&
+            $tool->user_id !== $user->id
+        ) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('tools.edit', compact('tool'));
     }
 }
