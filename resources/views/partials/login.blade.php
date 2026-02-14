@@ -39,8 +39,8 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="display_name" placeholder="Display Name"
-                                    required>
+                                <input type="text" class="form-control" name="display_name"
+                                    placeholder="Display Name" required>
                                 <div class="invalid-feedback">Display name is required</div>
                             </div>
 
@@ -56,8 +56,8 @@
 
                                 <!-- input wrapper -->
                                 <div class="position-relative">
-                                    <input type="password" class="form-control pe-5" name="password" id="expert_password"
-                                        placeholder="Password" required>
+                                    <input type="password" class="form-control pe-5" name="password"
+                                        id="expert_password" placeholder="Password" required>
 
                                     <span class="password-toggle" data-target="expert_password">
                                         <i class="fa fa-eye"></i>
@@ -113,33 +113,45 @@
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="expertiseTags"
-                                    placeholder="Enter Expertise Tags" required>
-                                <div class="invalid-feedback">Expertise Tags are required</div>
+                                <select class="form-control selectpicker" name="expertiseTags[]" multiple
+                                    data-live-search="true" title="Select Expertise Tags" required>
+                                    <option value="Video Editor">Video Editor</option>
+                                    <option value="Graphic Designer">Graphic Designer</option>
+                                    <option value="Animator">Animator</option>
+                                    <option value="Photographer">Photographer</option>
+                                    <option value="Content Creator">Content Creator</option>
+                                </select>
+                                <div class="invalid-feedback">Please select at least one expertise</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="toolsKnown"
-                                    placeholder="Tools Known" required>
-                                <div class="invalid-feedback">ToolsKnown are required</div>
+                                <select class="form-control selectpicker" name="toolsKnown[]" multiple
+                                    data-live-search="true" title="Select Tools Known" required>
+                                    <option value="Photoshop">Photoshop</option>
+                                    <option value="After Effects">After Effects</option>
+                                    <option value="Figma">Figma</option>
+                                    <option value="Premiere Pro">Premiere Pro</option>
+                                    <option value="Illustrator">Illustrator</option>
+                                </select>
+                                <div class="invalid-feedback">Please select at least one tool</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="skills" placeholder="Enter Skills"
-                                    required>
-                                <div class="invalid-feedback">Skills are required</div>
+                                <select class="form-control selectpicker" name="skills[]" multiple
+                                    data-live-search="true" title="Enter Skills" required>
+                                    <option value="Video Editing">Video Editing</option>
+                                    <option value="Graphic Design">Graphic Design</option>
+                                    <option value="Animation">Animation</option>
+                                    <option value="Photography">Photography</option>
+                                    <option value="Content Writing">Content Writing</option>
+                                </select>
+                                <div class="invalid-feedback">Please select at least one skill</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
                                 <input type="text" class="form-control" name="location"
                                     placeholder="Enter Location" required>
                                 <div class="invalid-feedback">Location is required</div>
-                            </div>
-
-                            <div class="form-group icon_input mb-3">
-                                <input type="text" class="form-control" name="languages"
-                                    placeholder="Enter Languages" required>
-                                <div class="invalid-feedback">Languages are required</div>
                             </div>
 
                             <div class="form-group icon_input mb-3">
@@ -165,7 +177,8 @@
                             </div>
 
                             <div class="form-control mb-3">
-                                <input class="form-control" type="file" id="formFile" name="profileFile" required>
+                                <input class="form-control" type="file" id="formFile" name="profileFile"
+                                    required>
                                 <div class="invalid-feedback profileFile-error">Profile file is required</div>
                             </div>
                             <input type="hidden" name="role" value="expert">
@@ -207,8 +220,8 @@
 
                                 <!-- input wrapper -->
                                 <div class="position-relative">
-                                    <input type="password" class="form-control pe-5" name="password" id="user_password"
-                                        placeholder="Password" required>
+                                    <input type="password" class="form-control pe-5" name="password"
+                                        id="user_password" placeholder="Password" required>
 
                                     <span class="password-toggle" data-target="user_password">
                                         <i class="fa fa-eye"></i>
