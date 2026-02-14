@@ -16,13 +16,14 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class ToolsImport implements ToCollection, WithHeadingRow
 {
     private $successCount = 0;
+
     private $failureCount = 0;
 
     // Detect the name column for each table
     private function getNameColumn($table)
     {
         $columns = Schema::getColumnListing($table);
-        
+
         // Check for common name column variations
         if (in_array('name', $columns)) {
             return 'name';
@@ -31,7 +32,7 @@ class ToolsImport implements ToCollection, WithHeadingRow
         } elseif (in_array('title', $columns)) {
             return 'title';
         }
-        
+
         return 'name'; // default fallback
     }
 
@@ -54,18 +55,19 @@ class ToolsImport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $rows)
     {
-        Log::info('Starting import with ' . $rows->count() . ' rows');
+        Log::info('Starting import with '.$rows->count().' rows');
 
         foreach ($rows as $index => $row) {
             try {
-                Log::info('Processing row ' . ($index + 2), $row->toArray());
+                Log::info('Processing row '.($index + 2), $row->toArray());
 
                 // Get tool name
                 $toolName = $row['tool_name'] ?? null;
 
                 if (empty($toolName)) {
-                    Log::warning('Skipping row ' . ($index + 2) . ': tool_name is empty');
+                    Log::warning('Skipping row '.($index + 2).': tool_name is empty');
                     $this->failureCount++;
+
                     continue;
                 }
 
@@ -73,15 +75,16 @@ class ToolsImport implements ToCollection, WithHeadingRow
                 $categoryName = $row['tool_category'] ?? null;
 
                 if (empty($categoryName)) {
-                    Log::warning('Skipping row ' . ($index + 2) . ': tool_category is empty');
+                    Log::warning('Skipping row '.($index + 2).': tool_category is empty');
                     $this->failureCount++;
+
                     continue;
                 }
 
                 $category = $this->findOrCreateByName(
                     ToolCategory::class,
                     $categoryName,
-                    ['description' => $categoryName . ' category (auto-created)']
+                    ['description' => $categoryName.' category (auto-created)']
                 );
 
                 if ($category->wasRecentlyCreated) {
@@ -92,13 +95,13 @@ class ToolsImport implements ToCollection, WithHeadingRow
                 $subCategory = null;
                 $subCategoryName = $row['sub_category'] ?? null;
 
-                if (!empty($subCategoryName)) {
+                if (! empty($subCategoryName)) {
                     $subCategory = $this->findOrCreateByName(
                         ToolSubCategory::class,
                         $subCategoryName,
                         [
                             'tool_category_id' => $category->id, // ✅ Link to parent category
-                            'description' => $subCategoryName . ' sub-category (auto-created)',
+                            'description' => $subCategoryName.' sub-category (auto-created)',
                         ]
                     );
 
@@ -111,11 +114,11 @@ class ToolsImport implements ToCollection, WithHeadingRow
                 $pricingType = null;
                 $pricingTypeName = $row['pricing_type'] ?? null;
 
-                if (!empty($pricingTypeName)) {
+                if (! empty($pricingTypeName)) {
                     $pricingType = $this->findOrCreateByName(
                         PricingType::class,
                         $pricingTypeName,
-                        ['description' => $pricingTypeName . ' pricing (auto-created)']
+                        ['description' => $pricingTypeName.' pricing (auto-created)']
                     );
 
                     if ($pricingType->wasRecentlyCreated) {
@@ -127,14 +130,14 @@ class ToolsImport implements ToCollection, WithHeadingRow
                 $pricingDetail = null;
                 $pricingDetailName = $row['pricing_details'] ?? null;
 
-                if (!empty($pricingDetailName) && $pricingType) {
+                if (! empty($pricingDetailName) && $pricingType) {
                     // ✅ IMPORTANT: Link pricing detail to pricing type
                     $pricingDetail = $this->findOrCreateByName(
                         PricingDetail::class,
                         $pricingDetailName,
                         [
                             'pricing_type_id' => $pricingType->id, // ✅ Link to parent pricing type
-                            'description' => $pricingDetailName . ' billing (auto-created)',
+                            'description' => $pricingDetailName.' billing (auto-created)',
                         ]
                     );
 
@@ -173,7 +176,7 @@ class ToolsImport implements ToCollection, WithHeadingRow
                 $this->successCount++;
 
             } catch (\Exception $e) {
-                Log::error('✗ Failed to import row ' . ($index + 2) . ': ' . $e->getMessage(), [
+                Log::error('✗ Failed to import row '.($index + 2).': '.$e->getMessage(), [
                     'row_data' => $row->toArray(),
                     'error' => $e->getMessage(),
                 ]);
