@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ToolUploadRequest;
+use App\Imports\ToolsImport;
 use App\Models\PricingDetail;
 use App\Models\PricingType;
 use App\Models\Tool;
@@ -10,6 +11,8 @@ use App\Models\ToolCategory;
 use App\Models\ToolStatus;
 use App\Models\ToolSubCategory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ToolUploadController extends Controller
 {
@@ -58,5 +61,59 @@ class ToolUploadController extends Controller
             'status' => true,
             'message' => 'Tool uploaded successfully 🎉',
         ]);
+    }
+
+    public function bulkUpload(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls|max:10240', // max 10MB
+        ]);
+
+        try {
+            $import = new ToolsImport;
+            Excel::import($import, $request->file('excel_file'));
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Tools uploaded successfully via Excel!',
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Tools uploaded successfully via Excel!');
+
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = [];
+
+            foreach ($failures as $failure) {
+                $errorMessages[] = "Row {$failure->row()}: ".implode(', ', $failure->errors());
+            }
+
+            $message = 'Excel validation failed: '.implode(' | ', $errorMessages);
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $message,
+                ], 422);
+            }
+
+            return redirect()->back()->with('error', $message);
+
+        } catch (\Exception $e) {
+            Log::error('Excel import error: '.$e->getMessage());
+
+            $message = 'Error uploading Excel: '.$e->getMessage();
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $message,
+                ], 500);
+            }
+
+            return redirect()->back()->with('error', $message);
+        }
     }
 }

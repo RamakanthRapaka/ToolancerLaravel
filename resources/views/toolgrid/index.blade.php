@@ -4,13 +4,27 @@
     <div class="page_title d-flex justify-content-between align-items-center mb-3">
         <h1>Categories</h1>
 
-        <a href="{{ asset('downloads/tool-upload-sample.xlsx') }}?v={{ filemtime(public_path('downloads/tool-upload-sample.xlsx')) }}"
-            download="tool-upload-sample-{{ date('YmdHis') }}.xlsx" class="btn btn-sm btn-success">
-            Download Sample Tool Upload Excel
-        </a>
-        <a href="{{ route('toolupload.index') }}" class="btn btn-sm btn-primary">
-            Upload Tool
-        </a>
+        <div class="d-flex gap-2">
+            <!-- Single Upload -->
+            <a href="{{ route('toolupload.index') }}" id="btnUploadTool" class="btn btn-sm btn-primary">
+                Upload Tool
+            </a>
+
+            <!-- Download Sample Excel -->
+            <a href="{{ asset('downloads/tool-upload-sample.xlsx') }}?v={{ filemtime(public_path('downloads/tool-upload-sample.xlsx')) }}"
+                id="btnDownloadSample" download="tool-upload-sample-{{ date('YmdHis') }}.xlsx" class="btn btn-sm btn-success">
+                Download Sample Tool Upload Excel
+            </a>
+
+            <!-- Bulk Excel Upload -->
+            <form id="bulkExcelForm" action="{{ route('toolupload.bulk') }}" method="POST" enctype="multipart/form-data"
+                class="d-inline">
+                @csrf
+                <input type="file" id="excelFileInput" name="excel_file" accept=".xlsx,.xls"
+                    class="form-control form-control-sm d-inline" style="width:auto; display:inline-block;">
+                <button type="submit" id="btnUploadExcel" class="btn btn-sm btn-warning">Upload Excel</button>
+            </form>
+        </div>
     </div>
 
     <div class="card">
@@ -115,4 +129,8 @@
             });
         });
     </script>
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/tool-upload-excel.js') }}"></script>
 @endpush

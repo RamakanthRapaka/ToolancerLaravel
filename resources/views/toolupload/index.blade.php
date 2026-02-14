@@ -169,6 +169,4 @@
 @push('scripts')
     {{-- AJAX + Bootstrap Validation --}}
     <script src="{{ asset('js/tool-upload-form.js') }}"></script>
-    <script src="{{ asset('js/tool-upload-single.js') }}"></script>
-    <script src="{{ asset('js/tool-upload-bulk.js') }}"></script>
 @endpush

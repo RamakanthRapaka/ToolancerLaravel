@@ -71,6 +71,8 @@ Route::post('reset-password',
 
 Route::middleware('auth')->group(function () {
 
+    Route::post('/toolupload/bulk', [ToolUploadController::class, 'bulkUpload'])
+        ->name('toolupload.bulk');
     Route::get('/tool-upload', [ToolUploadController::class, 'index'])
         ->name('toolupload.index');
 
