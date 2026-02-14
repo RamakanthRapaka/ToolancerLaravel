@@ -6,6 +6,11 @@ use App\Models\User;
 
 class UserGridController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
+
     public function index()
     {
         return view('usergrid.index');

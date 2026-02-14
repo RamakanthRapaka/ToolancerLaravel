@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
         '/tool/{tool}/status',
         [ToolGridController::class, 'updateStatus']
     )->name('tool.updateStatus')
-        ->middleware('role:admin');
+        ->middleware(['auth', 'role:admin']);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');

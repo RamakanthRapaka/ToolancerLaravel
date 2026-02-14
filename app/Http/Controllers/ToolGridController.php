@@ -46,6 +46,14 @@ class ToolGridController extends Controller
 
     public function updateStatus(Request $request, Tool $tool)
     {
+        // 🔒 Restrict to admin only
+    if (!Auth::user()->hasRole('admin')) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Unauthorized action'
+        ], 403);
+    }
+
         $request->validate([
             'status' => 'required|in:active,pending,rejected',
         ]);
