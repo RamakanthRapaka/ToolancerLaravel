@@ -4,6 +4,10 @@
     <div class="page_title d-flex justify-content-between align-items-center mb-3">
         <h1>Categories</h1>
 
+        <a href="{{ asset('downloads/tool-upload-sample.xlsx') }}?v={{ filemtime(public_path('downloads/tool-upload-sample.xlsx')) }}"
+            download="tool-upload-sample-{{ date('YmdHis') }}.xlsx" class="btn btn-sm btn-success">
+            Download Sample Tool Upload Excel
+        </a>
         <a href="{{ route('toolupload.index') }}" class="btn btn-sm btn-primary">
             Upload Tool
         </a>
@@ -71,44 +75,44 @@
     </script>
 @endpush
 @push('scripts')
-<script>
-$(document).on('click', '.dropdown-item[data-status]', function (e) {
-    e.preventDefault();
+    <script>
+        $(document).on('click', '.dropdown-item[data-status]', function(e) {
+            e.preventDefault();
 
-    const toolId = $(this).data('id');
-    const status = $(this).data('status');
+            const toolId = $(this).data('id');
+            const status = $(this).data('status');
 
-    console.log('Clicked:', toolId, status); // ✅ DEBUG
+            console.log('Clicked:', toolId, status); // ✅ DEBUG
 
-    if (!toolId || !status) {
-        console.error('Missing toolId or status');
-        return;
-    }
-
-    if (!confirm(`Are you sure you want to set status to "${status}"?`)) {
-        return;
-    }
-
-    $.ajax({
-        url: `/tool/${toolId}/status`,
-        type: 'POST',
-        data: {
-            status: status,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (res) {
-            if (res.status) {
-                alert(res.message);
-                $('#toolsTable').DataTable().ajax.reload(null, false);
-            } else {
-                alert('Failed to update status');
+            if (!toolId || !status) {
+                console.error('Missing toolId or status');
+                return;
             }
-        },
-        error: function (xhr) {
-            console.error(xhr.responseText);
-            alert('Server error');
-        }
-    });
-});
-</script>
+
+            if (!confirm(`Are you sure you want to set status to "${status}"?`)) {
+                return;
+            }
+
+            $.ajax({
+                url: `/tool/${toolId}/status`,
+                type: 'POST',
+                data: {
+                    status: status,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(res) {
+                    if (res.status) {
+                        alert(res.message);
+                        $('#toolsTable').DataTable().ajax.reload(null, false);
+                    } else {
+                        alert('Failed to update status');
+                    }
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    alert('Server error');
+                }
+            });
+        });
+    </script>
 @endpush
