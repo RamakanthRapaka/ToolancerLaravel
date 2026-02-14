@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
 use App\Models\Expert;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,11 +33,11 @@ class RegisterController extends Controller
              * =========================================================
              */
             $user = User::create([
-                'name'         => $request->input('name'),
+                'name' => $request->input('name'),
                 'display_name' => $request->input('display_name'),
-                'email'        => $request->input('email'),
-                'mobile'       => $request->input('mobile'),
-                'password'     => Hash::make($request->input('password')),
+                'email' => $request->input('email'),
+                'mobile' => $request->input('mobile'),
+                'password' => Hash::make($request->input('password')),
             ]);
 
             /**
@@ -49,7 +49,7 @@ class RegisterController extends Controller
              */
             $role = $request->input('role');
 
-            if (!in_array($role, ['user', 'expert'])) {
+            if (! in_array($role, ['user', 'expert'])) {
                 throw new \Exception('Invalid role assignment attempt');
             }
 
@@ -69,18 +69,18 @@ class RegisterController extends Controller
                 }
 
                 Expert::create([
-                    'user_id'        => $user->id,
-                    'tags'           => $this->stringify($request->input('tags')),
+                    'user_id' => $user->id,
+                    'tags' => $this->stringify($request->input('tags')),
                     'expertise_tags' => $this->stringify($request->input('expertiseTags')),
-                    'tools_known'    => $this->stringify($request->input('toolsKnown')),
-                    'skills'         => $this->stringify($request->input('skills')),
-                    'location'       => $request->input('location'),
-                    'languages'      => $this->stringify($request->input('languages')),
-                    'rate'           => $request->input('rate'),
-                    'portfolio_url'  => $request->input('portfolioURL'),
-                    'short_bio'      => $request->input('shortBio'),
-                    'profile_bio'    => $request->input('profileBio'),
-                    'profile_file'   => $filePath,
+                    'tools_known' => $this->stringify($request->input('toolsKnown')),
+                    'skills' => $this->stringify($request->input('skills')),
+                    'location' => $request->input('location'),
+                    'languages' => $this->stringify($request->input('languages')),
+                    'rate' => $request->input('rate'),
+                    'portfolio_url' => $request->input('portfolioURL'),
+                    'short_bio' => $request->input('shortBio'),
+                    'profile_bio' => $request->input('profileBio'),
+                    'profile_file' => $filePath,
                 ]);
             }
 
@@ -94,7 +94,7 @@ class RegisterController extends Controller
             // AJAX-safe response
             if ($request->expectsJson()) {
                 return response()->json([
-                    'status'  => true,
+                    'status' => true,
                     'message' => 'Registration successful',
                 ], 201);
             }
@@ -122,13 +122,13 @@ class RegisterController extends Controller
              */
             Log::error('Registration failed', [
                 'message' => $e->getMessage(),
-                'trace'   => $e->getTraceAsString(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
             // AJAX error response
             if ($request->expectsJson()) {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Registration failed. Please try again.',
                 ], 500);
             }

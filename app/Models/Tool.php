@@ -75,7 +75,7 @@ class Tool extends Model
 
     public function getLogoUrlAttribute()
     {
-        if (!$this->logo) {
+        if (! $this->logo) {
             return asset('img/default-tool.png');
         }
 
@@ -84,7 +84,6 @@ class Tool extends Model
             return $this->logo;
         }
 
-        return asset('storage/' . $this->logo);
+        return asset('storage/'.$this->logo);
     }
-
 }

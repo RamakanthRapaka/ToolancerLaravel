@@ -26,7 +26,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -35,13 +35,13 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             return response()->json([
-                'status'   => true,
+                'status' => true,
                 'redirect' => route('dashboard'),
             ]);
         }
 
         return response()->json([
-            'status'  => false,
+            'status' => false,
             'message' => 'Invalid email or password',
         ], 422);
     }

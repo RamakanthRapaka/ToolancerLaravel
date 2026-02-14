@@ -41,7 +41,6 @@ class ToolUploadRequest extends FormRequest
 
             'rating' => 'nullable|numeric|min:0|max:5',
 
-
             'use_cases' => 'required|string|max:1000',
             'features' => 'required|string|max:1000',
 

@@ -38,9 +38,9 @@ class ToolGridController extends Controller
                     'status' => $statusBadge,
                     'affiliate_link' => $tool->affiliate_link,
                     'tags' => $tool->tags,
-                    'actions' => view('toolgrid.partials.actions', ['tool' => $tool, 'user' => Auth::user()])->render()
+                    'actions' => view('toolgrid.partials.actions', ['tool' => $tool, 'user' => Auth::user()])->render(),
                 ];
-            })
+            }),
         ]);
     }
 
@@ -71,5 +71,4 @@ class ToolGridController extends Controller
 
         return back()->with('success', 'Tool status updated');
     }
-
 }

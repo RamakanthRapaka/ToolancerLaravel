@@ -17,7 +17,7 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         return view('profile.profile', [
-            'user'   => $user,
+            'user' => $user,
             'expert' => $user->expert ?? null,
         ]);
     }
@@ -39,8 +39,8 @@ class ProfileController extends Controller
              * =============================== */
             $user->update([
                 'display_name' => $request->display_name,
-                'email'        => $request->email,
-                'mobile'       => $request->mobile,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
             ]);
 
             /* ===============================
@@ -62,16 +62,16 @@ class ProfileController extends Controller
                 }
 
                 $expertData = [
-                    'tags'           => $this->stringify($request->input('tags')),
+                    'tags' => $this->stringify($request->input('tags')),
                     'expertise_tags' => $this->stringify($request->input('expertise_tags')),
-                    'tools_known'    => $this->stringify($request->input('tools_known')),
-                    'skills'         => $this->stringify($request->input('skills')),
-                    'location'       => $request->input('location'),
-                    'languages'      => $this->stringify($request->input('languages')),
-                    'rate'           => $request->input('rate'),
-                    'portfolio_url'  => $request->input('portfolio_url'),
-                    'short_bio'      => $request->input('short_bio'),
-                    'profile_bio'    => $request->input('profile_bio'),
+                    'tools_known' => $this->stringify($request->input('tools_known')),
+                    'skills' => $this->stringify($request->input('skills')),
+                    'location' => $request->input('location'),
+                    'languages' => $this->stringify($request->input('languages')),
+                    'rate' => $request->input('rate'),
+                    'portfolio_url' => $request->input('portfolio_url'),
+                    'short_bio' => $request->input('short_bio'),
+                    'profile_bio' => $request->input('profile_bio'),
                 ];
 
                 if ($filePath) {
@@ -88,7 +88,7 @@ class ProfileController extends Controller
              * =============================== */
             if ($request->ajax()) {
                 return response()->json([
-                    'status'  => true,
+                    'status' => true,
                     'message' => 'Profile updated successfully',
                 ]);
             }
@@ -107,7 +107,7 @@ class ProfileController extends Controller
 
             if ($request->ajax()) {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Profile update failed',
                 ], 500);
             }

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserGridController extends Controller
 {
@@ -33,9 +31,9 @@ class UserGridController extends Controller
                     'actions' => view(
                         'usergrid.partials.actions',
                         compact('user')
-                    )->render()
+                    )->render(),
                 ];
-            })
+            }),
         ]);
     }
 }

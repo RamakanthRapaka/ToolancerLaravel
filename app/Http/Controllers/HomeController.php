@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Tool;
+use App\Models\ToolCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\ToolCategory;
 
 class HomeController extends Controller
 {
@@ -12,14 +13,14 @@ class HomeController extends Controller
     {
         // Latest ACTIVE tools
         $tools = Tool::with(['category'])
-            //->where('tool_status_id', 2) // active
+            // ->where('tool_status_id', 2) // active
             ->latest()
             ->limit(8)
             ->get();
 
         // Featured experts
         $experts = User::with('expert')
-            ->whereHas('roles', fn($q) => $q->where('name', 'expert'))
+            ->whereHas('roles', fn ($q) => $q->where('name', 'expert'))
             ->latest()
             ->limit(4)
             ->get();
@@ -43,6 +44,7 @@ class HomeController extends Controller
     {
         return view('experts.index');
     }
+
     public function ajax(Request $request)
     {
         $query = Tool::with(['category', 'pricingType'])
@@ -50,7 +52,7 @@ class HomeController extends Controller
 
         // 🔍 Search
         if ($request->filled('search')) {
-            $query->where('tool_name', 'like', '%' . $request->search . '%');
+            $query->where('tool_name', 'like', '%'.$request->search.'%');
         }
 
         // 🧩 Category filter
@@ -61,21 +63,21 @@ class HomeController extends Controller
         $tools = $query->latest()->get();
 
         return response()->json([
-            'html' => view('tools.partials.cards', compact('tools'))->render()
+            'html' => view('tools.partials.cards', compact('tools'))->render(),
         ]);
     }
 
     public function expertsAjax(Request $request)
     {
         $query = User::with('expert')
-            ->whereHas('roles', fn($q) => $q->where('name', 'expert'));
+            ->whereHas('roles', fn ($q) => $q->where('name', 'expert'));
 
         // 🔍 Search (name or skills)
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
+                $q->where('name', 'like', '%'.$request->search.'%')
                     ->orWhereHas('expert', function ($e) use ($request) {
-                        $e->where('skills', 'like', '%' . $request->search . '%');
+                        $e->where('skills', 'like', '%'.$request->search.'%');
                     });
             });
         }
@@ -83,8 +85,7 @@ class HomeController extends Controller
         $experts = $query->latest()->get();
 
         return response()->json([
-            'html' => view('experts.partials.cards', compact('experts'))->render()
+            'html' => view('experts.partials.cards', compact('experts'))->render(),
         ]);
     }
-
 }

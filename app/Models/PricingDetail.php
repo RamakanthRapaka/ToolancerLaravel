@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PricingDetail extends Model
@@ -14,4 +13,3 @@ class PricingDetail extends Model
         return $this->belongsTo(PricingType::class);
     }
 }
-

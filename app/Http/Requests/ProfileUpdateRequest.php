@@ -140,14 +140,14 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'email.required' => 'Email is required',
-            'email.email'    => 'Please enter a valid email',
-            'email.unique'   => 'This email is already in use',
+            'email.email' => 'Please enter a valid email',
+            'email.unique' => 'This email is already in use',
 
             'tags.required' => 'Please select at least one tag',
-            'tags.min'      => 'Please select at least one tag',
+            'tags.min' => 'Please select at least one tag',
 
             'profile_image.image' => 'Profile image must be an image file',
-            'profile_image.max'   => 'Profile image must be less than 2MB',
+            'profile_image.max' => 'Profile image must be less than 2MB',
 
             'portfolio_url.url' => 'Portfolio URL must be a valid URL',
         ];

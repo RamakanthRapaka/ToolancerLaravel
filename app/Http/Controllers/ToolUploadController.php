@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\ToolCategory;
-use App\Models\ToolSubCategory;
-use App\Models\PricingType;
-use App\Models\PricingDetail;
-use App\Models\ToolStatus;
 use App\Http\Requests\ToolUploadRequest;
+use App\Models\PricingDetail;
+use App\Models\PricingType;
 use App\Models\Tool;
-use Illuminate\Support\Facades\Storage;
+use App\Models\ToolCategory;
+use App\Models\ToolStatus;
+use App\Models\ToolSubCategory;
 use Illuminate\Http\JsonResponse;
 
 class ToolUploadController extends Controller
@@ -58,8 +56,7 @@ class ToolUploadController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Tool uploaded successfully 🎉'
+            'message' => 'Tool uploaded successfully 🎉',
         ]);
     }
 }
-

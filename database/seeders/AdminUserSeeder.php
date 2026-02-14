@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -32,10 +32,10 @@ class AdminUserSeeder extends Seeder
         $admin = User::firstOrCreate(
             ['email' => 'admin@toolancer.com'],
             [
-                'name'         => 'Admin',
+                'name' => 'Admin',
                 'display_name' => 'Super Admin',
-                'mobile'       => '9999999999',
-                'password'     => Hash::make('Admin@123'),
+                'mobile' => '9999999999',
+                'password' => Hash::make('Admin@123'),
             ]
         );
 
@@ -44,7 +44,7 @@ class AdminUserSeeder extends Seeder
          * Assign Admin Role
          * -------------------------------------------------
          */
-        if (!$admin->hasRole('admin')) {
+        if (! $admin->hasRole('admin')) {
             $admin->assignRole($adminRole);
         }
 
